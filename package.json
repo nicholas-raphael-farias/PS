@@ -3,17 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "eslint-utils": "^1.4.1",
     "connected-react-router": "^6.5.2",
     "history": "^4.10.1",
+    "invariant": "^2.2.4",
     "jointjs": "^2.2.0",
     "jquery": "^3.4.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-helmet": "^5.2.1",
     "react-redux": "^7.1.1",
     "react-router": "^5.0.1",
     "react-scripts": "3.1.1",
     "redux": "^4.0.4",
     "redux-saga": "^1.1.1",
+    "reselect": "^4.0.0",
     "styled-components": "^4.3.2"
   },
   "scripts": {
