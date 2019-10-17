@@ -19,7 +19,7 @@ const checkDescriptor = descriptor => {
   };
   invariant(
     conformsTo(descriptor, shape),
-    '(app/utils...) injectSaga: Expected a valid saga descriptor',
+    '(src/utils...) injectSaga: Expected a valid saga descriptor',
   );
 };
 
@@ -34,7 +34,7 @@ export function injectSagaFactory(store, isValid) {
     const { saga, mode } = newDescriptor;
 
     checkKey(key);
-    checkDescriptor(newDescriptor);
+    //checkDescriptor(newDescriptor);
 
     let hasSaga = Reflect.has(store.injectedSagas, key);
 

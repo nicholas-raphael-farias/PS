@@ -35,6 +35,7 @@ class Playground extends React.Component {
       gridSize: 10,
       model: this.graph,
       interactive: false,
+      background: {color: '#EFF2F7'},   
     });
 
     // Create a custom element.

@@ -1,5 +1,5 @@
 /*
- * HomeConstants
+ * SignupConstants
  * Each action has a corresponding type, which the reducer knows and picks up on.
  * To avoid weird typos between the reducer and the actions, we save them as
  * constants here. We prefix them with 'yourproject/YourComponent' so we avoid
@@ -12,3 +12,5 @@
 export const CHANGE_NAME = 'ps/SignupPage/CHANGE_NAME';
 export const CHANGE_EMAIL = 'ps/SignupPage/CHANGE_EMAIL';
 export const CHANGE_CODE = 'ps/SignupPage/CHANGE_CODE';
+export const CREATE_OWNER = 'ps/SignupPage/CREATE_OWNER';
+export const UPDATE_OWNER = 'ps/SignupPage/UPDATE_OWNER';

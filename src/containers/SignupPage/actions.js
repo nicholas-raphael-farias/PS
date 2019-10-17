@@ -15,7 +15,7 @@
  *    }
  */
 
-import { CHANGE_NAME, CHANGE_EMAIL, CHANGE_CODE } from './constants';
+import { CHANGE_NAME, CHANGE_EMAIL, CHANGE_CODE, CREATE_OWNER, UPDATE_OWNER } from './constants';
 
 /**
  * Changes the input field of the form
@@ -44,5 +44,19 @@ export function changeCode(code) {
   return {
     type: CHANGE_CODE,
     code,
+  };
+}
+
+export function createOwner(owner) {
+  return {
+    type: CREATE_OWNER,
+    owner,
+  };
+}
+
+export function updateOwner(owner) {
+  return {
+    type: UPDATE_OWNER,
+    owner,
   };
 }

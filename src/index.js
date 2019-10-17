@@ -7,6 +7,7 @@ import configureStore from './configureStore';
 import App from './containers/App';
 import history from './utils/history';
 import * as serviceWorker from './serviceWorker';
+import { loadState, saveState } from './localStorage';
 
 // Create redux store with history
 const initialState = {};

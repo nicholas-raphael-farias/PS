@@ -25,4 +25,10 @@ const makeSelectCode = () =>
     signupState => signupState.code,
   );
 
-export { selectSignup, makeSelectName, makeSelectEmail, makeSelectCode};
+const makeSelectWasCreated = () =>
+  createSelector(
+    selectSignup,
+    signupState => signupState.wasCreated,
+  );
+
+export { selectSignup, makeSelectName, makeSelectEmail, makeSelectCode, makeSelectWasCreated};

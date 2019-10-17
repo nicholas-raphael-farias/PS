@@ -8,13 +8,14 @@
  */
 
 import produce from 'immer';
-import { CHANGE_NAME, CHANGE_EMAIL, CHANGE_CODE } from './constants';
+import { CHANGE_NAME, CHANGE_EMAIL, CHANGE_CODE, CREATE_OWNER, UPDATE_OWNER } from './constants';
 
 // The initial state of the App
 export const initialState = {
   name: '',
   email: '',
   code: '',
+  wasCreated: false,
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -29,6 +30,16 @@ const signupReducer = (state = initialState, action) =>
         break;
       case CHANGE_CODE:
         draft.code = action.code;
+        break;
+      case CREATE_OWNER:
+        console.log("reducer")
+        break;
+      case UPDATE_OWNER:
+        draft.owner = action.owner;
+        draft.name = '';
+        draft.email = '';
+        draft.code = '';
+        draft.wasCreated = true;
         break;
     }
   });

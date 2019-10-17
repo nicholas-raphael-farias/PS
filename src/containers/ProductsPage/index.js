@@ -14,7 +14,7 @@ const Product = (props) => {
         {props.modifiers.map((modifier) => {
           return (
             <div>
-              <button type="button" class="btn btn-info" style={{width:'100%', margin:'4px 0 4px 0'}}>
+              <button type="button" className="btn btn-info" style={{width:'100%', margin:'4px 0 4px 0'}}>
                 <span style={{float:'left'}}>{modifier.name}</span>
                 <span style={{float:'right'}}>{modifier.cost}</span>
               </button>
@@ -65,7 +65,7 @@ class ProductsPage extends React.Component {
     ],
       isVisiblePrdForm: false,
       newPrdSelect: '',
-      prdsSelect:[],
+      prdsSelect:['producto a'],
       selectedPrd: '',
       createModifierBlock: '',
       createModifierProduct:'',
@@ -73,7 +73,7 @@ class ProductsPage extends React.Component {
       createModifierName:'',
       createModifierHasCost: false,
       createModifierCost: '',
-      isVisibleChart: true,
+      isVisibleChart: false,
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.createProduct = this.createProduct.bind(this)
@@ -150,7 +150,7 @@ class ProductsPage extends React.Component {
       <div>
         <h1>Blocks</h1>
 
-        <div className={"form-group " + (this.state.isVisibleChart ? '' : 'd-none')} style={{position:'absolute', width:'100vw', height:'100vh', backgroundColor:'white', zIndex:'1'}}>
+        <div className={"form-group " + (this.state.isVisibleChart ? '' : 'd-none')} style={{position:'absolute', width:'100vw', height:'100vh', backgroundColor:'#EFF2F7', zIndex:'1'}}>
           <Playground products={this.state.products} deleteProduct={this.deleteProduct} />
         </div>
 
