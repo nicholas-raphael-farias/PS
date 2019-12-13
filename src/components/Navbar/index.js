@@ -1,6 +1,6 @@
 import React from 'react'
 import { Redirect } from 'react-router';
-
+import { Link } from "react-router-dom";
 
 
 class Navbar extends React.Component {
@@ -25,22 +25,22 @@ class Navbar extends React.Component {
         <div className="collapse navbar-collapse" id="navbarText">
           <ul className="navbar-nav mr-auto">
             <li className={(this.props.is_active === 'dashboard') ? 'nav-item active' : 'nav-item'}>
-              <a className="nav-link" href="/dashboard">Dashboard</a>
+              <a className="nav-link" href="/PS/dashboard">Dashboard</a>
             </li>
             <li className={(this.props.is_active === 'employees') ? 'nav-item active' : 'nav-item'}>
-              <a className="nav-link" href="/employees">Empleados</a>
+              <a className="nav-link" href="/PS/employees">Employees</a>
             </li>
             <li className={(this.props.is_active === 'product') ? 'nav-item active' : 'nav-item'}>
-              <a className="nav-link" href="/ultimate">Productos</a>
+              <a className="nav-link" href="/PS/ultimate">Products</a>
             </li>
             <li className={(this.props.is_active === 'analytics') ? 'nav-item active' : 'nav-item'}>
-              <a className="nav-link" href="/analytics">Analytics</a>
+              <a className="nav-link" href="/PS/analytics">Analytics</a>
             </li>
             <li className={(this.props.is_active === 'flow') ? 'nav-item active' : 'nav-item'}>
-              <a className="nav-link" href="/flow">Flujo</a>
+              <a className="nav-link" href="/PS/flow">Flujo</a>
             </li>
             <li className={(this.props.is_active === 'cash') ? 'nav-item active' : 'nav-item'}>
-              <a className="nav-link" href="/cash">Caja</a>
+              <a className="nav-link" href="/PS/cash">Caja</a>
             </li>
           </ul>
           <span className="navbar-text" style={{cursor: "pointer"}} onClick={() => {

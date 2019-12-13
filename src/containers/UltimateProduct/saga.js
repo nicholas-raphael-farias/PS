@@ -1,16 +1,15 @@
-
-
+import { getServerUrl } from './../../utils/serverURL';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { SAVE_PRODUCT } from './constants';
+import { CREATE_PRODUCT } from './constants';
 import { makeSelectNewProduct } from './selectors';
-import { createProduct } from './actions';
+import { createdProduct } from './actions';
 import request from './../../utils/request';
 import produce from 'immer';
 
-export function* sagaSaveProduct() {
+export function* sagaCreateProduct() {
   // Select username from store
   const product = yield select(makeSelectNewProduct());
-  const requestURL = `http://localhost:3030/products`;
+  const requestURL = `${getServerUrl()}/products`;
 
   try {
     const token = localStorage.getItem("PointOfSaleToken")
@@ -20,7 +19,7 @@ export function* sagaSaveProduct() {
       method: 'POST'
     });
 
-    yield put(createProduct(authResponse)); 
+    yield put(createdProduct(authResponse)); 
     
   } catch (err) {
     console.log("err")
@@ -32,5 +31,5 @@ export function* sagaSaveProduct() {
  * Root saga manages watcher lifecycle
  */
 export default function* sagaListener() {
-  yield takeLatest(SAVE_PRODUCT, sagaSaveProduct);
+  yield takeLatest(CREATE_PRODUCT, sagaCreateProduct);
 }

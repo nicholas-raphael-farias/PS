@@ -18,11 +18,8 @@
 import { 
   LOAD_PRODUCTS, 
   CREATE_PRODUCT,
-  SAVE_PRODUCT,
+  CREATED_PRODUCT,
   MAKE_FORM_VISIBLE,
-  CHANGE_PRODUCT_NAME,
-  CHANGE_PRODUCT_HAS_PRICE,
-  CHANGE_PRODUCT_PRICE,
  } from './constants';
 
 /**
@@ -43,9 +40,9 @@ export function loadProducts(products) {
  * @param {object} product Instancia de producto
  * @return {object} An action object with a type of CREATE_PRODUCT
  */
-export function createProduct(product) {
+export function createdProduct(product) {
   return {
-    type: CREATE_PRODUCT,
+    type: CREATED_PRODUCT,
     product,
   };
 }
@@ -53,9 +50,10 @@ export function createProduct(product) {
 /**
  * @return {object} An action object with a type of SAVE_PRODUCT
  */
-export function saveProduct() {
+export function createProduct(product) {
   return {
-    type: SAVE_PRODUCT,
+    type: CREATE_PRODUCT,
+    product
   };
 }
 
@@ -71,21 +69,4 @@ export function makeFormVisible(form, visibility){
     form,
     visibility,
   };
-}
-
-/**
- * 
- * @param {string} property product property to be change
- * * @param {string} value value to be change
- * @return {object} An action object with a type of CHANGE_PRODUCT_NAME or CHANGE_PRODUCT_PRICE
- */
-export function changeProduct(property, value){
-  switch (property) {
-    case "name":
-      return { type: CHANGE_PRODUCT_NAME, name: value};
-    case "hasPrice":
-      return { type: CHANGE_PRODUCT_HAS_PRICE, hasPrice: value};
-    case "price":
-        return { type: CHANGE_PRODUCT_PRICE, price: value};
-  }
 }

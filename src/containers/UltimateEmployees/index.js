@@ -7,13 +7,39 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { useInjectReducer } from './../../utils/injectReducer';
 import { useInjectSaga } from './../../utils/injectSaga';
-import { loadEmployees, saveEmployee, changeVisibility, changeEmployee, deleteEmployee, selectEmployee, updateEmployee, updateSelectedEmployee, changeFilter } from './actions';
-import { makeSelectEmployees, makeSelectFormVisibility, makeSelectNewEmployee, makeSelectSelectedEmployee, makeSelectFilter, makeSelectFilteredEmployees } from './selectors';
+import { 
+  loadEmployees, 
+  saveEmployee, 
+  changeVisibility, 
+  deleteEmployee, 
+  selectEmployee, 
+  updateSelectedEmployee, 
+  changeFilter, 
+  changeNewPswd, 
+  updatePassword,
+  setValues } from './actions';
 
+import { 
+  makeSelectEmployees, 
+  makeSelectFormVisibility, 
+  makeSelectNewEmployee, 
+  makeSelectSelectedEmployee, 
+  makeSelectFilter, 
+  makeSelectFilteredEmployees, 
+  makeSelectPswdVisibility, 
+  makeSelectNewPswdVisibility, 
+  makeSelectNewPswd } from './selectors';
+
+import { getServerUrl } from './../../utils/serverURL';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale, setDefaultLocale } from  "react-datepicker";
 import es from 'date-fns/locale/es';
+
+import NewEmployeeForm from './../../components/NewEmployeeForm'
+import UpdateEmployeeForm from './../../components/UpdateEmployeeForm'
+import NewPasswordForm from './../../components/NewPasswordForm'
+
 
 import Navbar from '../../components/Navbar';
 import Modal from '../../components/Modal';
@@ -24,118 +50,41 @@ import saga from './saga';
 const key = 'employees';
 registerLocale('es', es);
 
-const EmployeeForm = ({new_employee, onChangeEmployee, onSaveEmployee, changeVisibility}) => {
+const NewPassForm = ({new_pswd, is_new_pswd_visible, changeVisibility, onChangeNewPswd, onUpdatePswd}) => {
   return(
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Crear Empleado</h5>
-        <button type="button" class="close" onClick={() => changeVisibility("crtForm", false)}>
+        <h5 class="modal-title">Cambiar Contraseña</h5>
+        <button type="button" class="close" onClick={() => changeVisibility("updtPswdForm", false)}>
           <span aria-hidden="true">×</span>
         </button>
       </div>
       <div class="modal-body">
-      <div class="form-group">
-        <label for="exampleInputEmail1">Nombre(s)</label>
-        <input 
-          type="text" 
-          class="form-control" 
-          placeholder="Nombre(s)"
-          value={new_employee.name}
-          onChange={(evt) => onChangeEmployee("name", evt.target.value)}/>
-      </div>
-      <div class="form-group">
-        <label for="exampleInputEmail1">Email</label>
-        <input 
-          type="text" 
-          class="form-control" 
-          placeholder="Email"
-          value={new_employee.email}
-          onChange={(evt) => onChangeEmployee("email", evt.target.value)}/>
-      </div>
-      <div class="form-group">
-        <label for="exampleInputEmail1">Teléfono</label>
-        <input 
-          type="text" 
-          class="form-control" 
-          placeholder="Teléfono"
-          value={new_employee.phone}
-          onChange={(evt) => onChangeEmployee("phone", evt.target.value)}/>
-      </div>
-      <div className="form-group">
-            <label>Fecha de nacimiento</label> <br/>
-            <DatePicker
-              locale="es"
-              className="form-control"
-              showMonthDropdown
-              showYearDropdown
-              selected={new Date(new_employee.birthday)}
-              onSelect={(date) => {onChangeEmployee("birthday", date)}}
-            />
-          </div>
+        <div class="form-group">
+          <label>Nueva Contraseña</label>
+          <label 
+            class="float-right" 
+            style={{cursor:"pointer", fontSize:"75%"}}
+            onClick={() => changeVisibility("new_password", !is_new_pswd_visible)}>  
+            { is_new_pswd_visible ? <img src="eye.png" style={{height:"16px", margin:"0 4px"}} /> : null }
+            <b>Mostrar</b>
+          </label>
+          <input 
+            type={is_new_pswd_visible ? "text" : "password"}
+            class="form-control"
+            placeholder="Contraseña"
+            value={new_pswd}
+            onChange={onChangeNewPswd}
+          />
+          <small class="form-text text-muted">
+            Tu contraseña debe contener mínimo 5 caracteres.
+          </small>
+        </div>
       <div 
         className="btn btn-dark" 
         style={{marginTop: "8px"}}
-        onClick={onSaveEmployee}>
-          Crear Empleado
-      </div>
-    </div>
-    </div>
-  );
-}
-
-const UpdateForm = ({employee, changeVisibility, onUpdateEmployee, onUpdateSelected}) => {
-  return(
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Crear Empleado</h5>
-        <button type="button" class="close" onClick={() => changeVisibility("updtForm", false)}>
-          <span aria-hidden="true">×</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <div class="form-group">
-        <label for="exampleInputEmail1">Nombre(s)</label>
-        <input 
-          type="text" 
-          class="form-control" 
-          placeholder="Nombre(s)"
-          value={employee.name}
-          onChange={(evt) => onUpdateEmployee("name", evt.target.value)}/>
-      </div>
-      <div class="form-group">
-        <label for="exampleInputEmail1">Email</label>
-        <input 
-          type="text" 
-          class="form-control" 
-          placeholder="Email"
-          value={employee.email}
-          onChange={(evt) => onUpdateEmployee("email", evt.target.value)}/>
-      </div>
-      <div class="form-group">
-        <label for="exampleInputEmail1">Teléfono</label>
-        <input 
-          type="text" 
-          class="form-control" 
-          placeholder="Teléfono"
-          value={employee.phone}
-          onChange={(evt) => onUpdateEmployee("phone", evt.target.value)}/>
-      </div>
-      <div className="form-group">
-            <label>Fecha de nacimiento</label> <br/>
-            <DatePicker
-              locale="es"
-              className="form-control"
-              showMonthDropdown
-              showYearDropdown
-              selected={new Date(employee.birthday)}
-              onSelect={(date) => {onUpdateEmployee("birthday", date)}}
-            />
-          </div>
-      <div 
-        className="btn btn-dark" 
-        style={{marginTop: "8px"}}
-        onClick={onUpdateSelected}>
-          Actualizar Empleado
+        onClick={onUpdatePswd}>
+          Cambiar Contraseña
       </div>
     </div>
     </div>
@@ -159,7 +108,8 @@ const Table = ({employees, changeVisibility, onDeleteEmployee, onSelectEmployee}
             changeVisibility("updtForm", true);
           }}/>
           <img src="r.png" style={{height:"16px", cursor:"pointer", margin:"0 4px"}} onClick={() => {
-            onDeleteEmployee(e._id)
+            onSelectEmployee(e._id);
+            onDeleteEmployee();
           }}/>
         </td>
       </tr>
@@ -171,27 +121,33 @@ function EmployeesUltimate({
   employees,
   form_visibility,
   new_employee,
-  selected_empoyee,
+  selected_employee,
   filter,
   filtered_employees,
+  is_pswd_visible,
+  is_new_pswd_visible,
+  new_pswd,
   onLoadEmployees,
   changeVisibility,
   onChangeEmployee,
   onSaveEmployee,
   onDeleteEmployee,
   onSelectEmployee,
-  onUpdateEmployee,
   onUpdateSelected,
   onChangeFilter,
+  onChangeNewPswd,
+  onUpdatePswd,
+  onSetValues,
 }) {
   let children;
   let children2;
+  let children3;
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
   useEffect(() => {
 
-    const requestURL = `http://localhost:3030/employees`;
+    const requestURL = `${getServerUrl()}/employees`;
     try {
       const token = localStorage.getItem("PointOfSaleToken")
 
@@ -210,19 +166,52 @@ function EmployeesUltimate({
   }, []);
 
   children = (
-    <EmployeeForm 
-      new_employee={new_employee} 
-      onChangeEmployee={onChangeEmployee} 
-      onSaveEmployee={onSaveEmployee}
-      changeVisibility={changeVisibility}/>
+    <div className="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Crear Empleado</h5>
+        <button type="button" class="close" onClick={() => changeVisibility("crtForm", false)}>
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div className="modal-body">
+        <NewEmployeeForm onSetValues={onSetValues} onSaveEmployee={onSaveEmployee}/>
+      </div>
+    </div>
   );
 
   children2 = (
-    <UpdateForm 
-      changeVisibility={changeVisibility}
-      employee={selected_empoyee}
-      onUpdateEmployee={onUpdateEmployee}
-      onUpdateSelected={onUpdateSelected}/>
+    <div className="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Actualizar Empleado</h5>
+        <button type="button" class="close" onClick={() => changeVisibility("updtForm", false)}>
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div className="modal-body">
+        <UpdateEmployeeForm 
+          employee={selected_employee} 
+          onSetValues={onSetValues} 
+          onSaveEmployee={onSaveEmployee} 
+          changeVisibility={changeVisibility}
+          onUpdateSelected={onUpdateSelected}/>
+      </div>
+    </div>
+  );
+
+  children3 = (
+    <div className="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Actualizar Contraseña</h5>
+        <button type="button" class="close" onClick={() => changeVisibility("updtPswdForm", false)}>
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div className="modal-body">
+        <NewPasswordForm
+          onUpdatePswd={onUpdatePswd}
+        />
+      </div>
+    </div>
   );
 
   return (
@@ -230,6 +219,7 @@ function EmployeesUltimate({
       <Navbar is_active='employees' />
       <Modal is_visible={form_visibility.crtForm} children={children} />
       <Modal is_visible={form_visibility.updtForm} children={children2} />
+      <Modal is_visible={form_visibility.updtPswdForm} children={children3} />
 
       <div style={{position:'absolute', top:'68px', right:'8px', width:'200px', zIndex:"1"}}>
         <div className="input-group">
@@ -242,7 +232,7 @@ function EmployeesUltimate({
 
       <div className="row justify-content-center">
         <div className="col-6">
-          <h1>Empleados</h1>
+          <h1>Empleadxs</h1>
         </div>
         <div className="col-6">    
         <div className="btn btn-dark" style={{marginTop: "12px"}} onClick={() => changeVisibility("crtForm", true)} >Crear Empleado</div>      
@@ -290,22 +280,26 @@ const mapStateToProps = createStructuredSelector({
   employees: makeSelectEmployees(),
   form_visibility: makeSelectFormVisibility(),
   new_employee: makeSelectNewEmployee(),
-  selected_empoyee: makeSelectSelectedEmployee(),
+  selected_employee: makeSelectSelectedEmployee(),
   filter: makeSelectFilter(),
   filtered_employees: makeSelectFilteredEmployees(),
+  is_pswd_visible: makeSelectPswdVisibility(),
+  is_new_pswd_visible: makeSelectNewPswdVisibility(),
+  new_pswd: makeSelectNewPswd(),
 });
 
 export function mapDispatchToProps(dispatch) {
   return {
     onLoadEmployees: (employees) => dispatch(loadEmployees(employees)),
     changeVisibility: (form, visibility) => dispatch(changeVisibility(form, visibility)),
-    onChangeEmployee: (property, value) => dispatch(changeEmployee(property, value)),
-    onUpdateEmployee: (property, value) => dispatch(updateEmployee(property, value)),
     onSaveEmployee: () => dispatch(saveEmployee()),
     onDeleteEmployee: (id) => dispatch(deleteEmployee(id)),
     onSelectEmployee: (id) => dispatch(selectEmployee(id)),
-    onUpdateSelected: () => dispatch(updateSelectedEmployee()),
+    onUpdateSelected: (values) => dispatch(updateSelectedEmployee(values)),
     onChangeFilter: (evt) => dispatch(changeFilter(evt.target.value)),
+    onChangeNewPswd: (evt) => dispatch(changeNewPswd(evt.target.value)),
+    onUpdatePswd: (new_password) => dispatch(updatePassword(new_password)),
+    onSetValues: (new_employee_data) => dispatch(setValues(new_employee_data)),
   };
 }
 

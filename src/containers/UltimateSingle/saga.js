@@ -1,5 +1,4 @@
-
-
+import { getServerUrl } from './../../utils/serverURL';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { SAVE_MOD, SAVE_OPT } from './constants';
 import { makeSelectModifier, makeSelectProduct, makeSelectOption, makeSelectChosenModifier } from './selectors';
@@ -11,7 +10,7 @@ export function* sagaSaveModifier() {
   // Select username from store
   const modifier = yield select(makeSelectModifier());
   const product = yield select(makeSelectProduct());
-  const requestURL = `http://localhost:3030/products/${product._id}`;
+  const requestURL = `${getServerUrl()}/products/${product._id}`;
 
   try {
 
@@ -39,14 +38,23 @@ export function* sagaSaveOpt() {
   const opt = yield select(makeSelectOption());
   const chosenModifier = yield select(makeSelectChosenModifier());
   const product = yield select(makeSelectProduct());
-  const requestURL = `http://localhost:3030/products/${product._id}`;
+  const requestURL = `${getServerUrl()}/products/${product._id}`;
 
   try {
 
+    let opt_struct
+    opt_struct= opt;
+
     const token = localStorage.getItem("PointOfSaleToken");
     let modifier = product.modifiers.find(mod => mod.name === chosenModifier);
+    console.log(modifier)
+    if(modifier.is_optional){
+      opt_struct.is_selected = false;
+    } 
+
+
     let modifierIndex = product.modifiers.findIndex(mod => mod.name === chosenModifier);
-    modifier.options.push(opt);
+    modifier.options.push(opt_struct);
     product.modifiers[modifierIndex] = modifier;
 
     const authResponse = yield call(request, requestURL, {

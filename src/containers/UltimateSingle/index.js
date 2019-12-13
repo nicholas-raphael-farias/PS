@@ -4,19 +4,22 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-
+import { getServerUrl } from './../../utils/serverURL';
 import { createStructuredSelector } from 'reselect';
 import { useInjectReducer } from './../../utils/injectReducer';
 import { useInjectSaga } from './../../utils/injectSaga';
 import Navbar from '../../components/Navbar';
 import Modal from '../../components/Modal';
 
+import NewModifierForm from './../../components/NewModifierForm'
+import NewOptForm from './../../components/NewOptForm'
+
 import { 
   loadProduct, 
   changeFormState, 
-  changeMod, 
+  setModValues,
+  setOptValues,
   saveMod, 
-  changeOpt,
   saveOpt
 } from './actions';
 import { 
@@ -29,7 +32,6 @@ import {
 import reducer from './reducer';
 import saga from './saga';
 const key = 'ultimate';
-
 
 const Modifier = ({modifier,onChangeFormState}) => {
 
@@ -48,10 +50,13 @@ const Modifier = ({modifier,onChangeFormState}) => {
 
 
   return(
-    <div className="card" style={{width: '240px', margin:'8px', height:'240px'}}>
+    <div className="card" style={{width: '240px', margin:'8px'}}>
       <div class="modal-header">
         <span>{modifier.name}</span>
-        <span>{formatType(modifier.type)}</span>
+        <div style={{  position: "absolute", float: "right", width: "50%", right: "8px", top: "2px", textAlign:"right"}}>
+          <span className="badge badge-info">{modifier.is_optional ? "Opcional" : "Obligatorio" }</span>
+          <span className="badge badge-info">{modifier.is_multiple_choice ? "Opcion Multiple" : null }</span>
+        </div>
       </div>
       <div className="card-body">
         {modifier.options.map(opt => {
@@ -92,15 +97,61 @@ const CreateModifier = ({new_modifier, onChangeFormState, onChangeMod, onSaveMod
             value={new_modifier.name}
             onChange={(evt) => onChangeMod("name", evt.target.value)}/>
         </div>
-        <div class="form-group">
-          <label>Tipo</label>
-          <select class="custom-select" value={new_modifier.type} onChange={(evt) => onChangeMod("type", evt.target.value)}>
-            <option value="">Tipos de Modificador</option>
-            <option value="0">Opcional</option>
-            <option value="1">Obligatorio</option>
-            <option value="2">Seleccion Multiple</option>
-          </select>
+        <div className="form-group">
+          <label for="exampleInputEmail1">Tipo</label> <br/>
+          <div class="form-check form-check-inline">
+            <input 
+              class="form-check-input" 
+              type="radio" 
+              checked={!new_modifier.is_optional}
+              onChange={() => onChangeMod("is_optional", false)}/>
+            <label class="form-check-label">
+              Obligatorio
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input 
+              class="form-check-input" 
+              type="radio" 
+              checked={new_modifier.is_optional}
+              onChange={() => onChangeMod("is_optional", true)}/>
+            <label class="form-check-label">
+              Opcional
+            </label>
+          </div>
         </div>
+
+        <div className="form-group">
+          <label for="exampleInputEmail1">Acepta multiples opciones?</label> <br/>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input"
+              type="radio" 
+              checked={!new_modifier.is_multiple_choice}
+              onChange={() => onChangeMod("is_multiple_choice", false)}/>
+            <label class="form-check-label">
+              No
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input"
+              type="radio" 
+              checked={new_modifier.is_multiple_choice}
+              onChange={() => onChangeMod("is_multiple_choice", true)}/>
+            <label class="form-check-label">
+              Si
+            </label>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+       
         <div 
           className="btn btn-dark" 
           onClick={onSaveMod}>
@@ -157,7 +208,8 @@ export function UltimateSingle({
   chosen_modifier,
   new_option,
   onChangeFormState, 
-  onChangeMod,
+  setModValues,
+  setOptValues,
   onLoadProduct,
   onSaveMod,
   onChangeOption,
@@ -171,7 +223,7 @@ export function UltimateSingle({
 
   useEffect(() => {
 
-    const requestURL = `http://localhost:3030/products/${match.params.productId}`;
+    const requestURL = `${getServerUrl()}/products/${match.params.productId}`;
     try {
       const token = localStorage.getItem("PointOfSaleToken")
 
@@ -191,19 +243,42 @@ export function UltimateSingle({
   }, []);
 
   children =(
-    <CreateModifier 
-      new_modifier={new_modifier} 
-      onChangeFormState={onChangeFormState} 
-      onChangeMod={onChangeMod} 
-      onSaveMod={onSaveMod}/>
+    <div className="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Crear Modificador</h5>
+        <button type="button" class="close" onClick={() => onChangeFormState("crt_mod", false)}>
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div className="modal-body">
+        <NewModifierForm setModValues={setModValues} onSaveMod={onSaveMod}/>
+      </div>
+    </div>
+
+    //<CreateModifier 
+    //  new_modifier={new_modifier} 
+    //  onChangeFormState={onChangeFormState} 
+    //  onChangeMod={onChangeMod} 
+    //  onSaveMod={onSaveMod}/>
   );
 
   children2 =(
-    <CreateOpt 
-      new_option={new_option}
-      onChangeFormState={onChangeFormState}  
-      onChangeOption={onChangeOption}
-      onSaveOpt={onSaveOpt}/>
+    <div className="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Crear Opcion</h5>
+        <button type="button" class="close" onClick={() => onChangeFormState("crt_opt", false)}>
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div className="modal-body">
+        <NewOptForm setOptValues={setOptValues} onSaveOpt={onSaveOpt}/>
+      </div>
+    </div>
+    //<CreateOpt 
+    //  new_option={new_option}
+    //  onChangeFormState={onChangeFormState}  
+    //  onChangeOption={onChangeOption}
+    //  onSaveOpt={onSaveOpt}/>
   );
 
 
@@ -250,9 +325,9 @@ export function mapDispatchToProps(dispatch) {
   return {
     onLoadProduct: (product) => dispatch(loadProduct(product)),
     onChangeFormState: (form, new_state, opt) => {dispatch(changeFormState(form, new_state, opt)); console.log("change")},
-    onChangeMod: (property, value) => dispatch(changeMod(property, value)),
+    setModValues: (modifier) => dispatch(setModValues(modifier)),
+    setOptValues: (option) => dispatch(setOptValues(option)),
     onSaveMod: () => dispatch(saveMod()),
-    onChangeOption: (property, value) => dispatch(changeOpt(property, value)),
     onSaveOpt: () => dispatch(saveOpt()),
   };
 }

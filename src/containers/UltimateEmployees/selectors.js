@@ -40,6 +40,7 @@ const makeSelectNewEmployee = () =>
         email: empState.email,
         phone: empState.phone,
         birthday: empState.birthday,
+        password: empState.password,
       };
     },
   );
@@ -51,6 +52,7 @@ const makeSelectFormVisibility = () =>
       return({
         crtForm: empState.is_crtForm_visible,
         updtForm: empState.is_updtForm_visible,
+        updtPswdForm: empState.is_updtPswdForm_visible,
       });
     },
   );
@@ -67,4 +69,22 @@ const makeSelectFilter = () =>
     empState => empState.filter,
   );
 
-export { makeSelectEmployees, makeSelectFormVisibility, makeSelectNewEmployee, makeSelectSelectedEmployee, makeSelectFilter, makeSelectFilteredEmployees };
+const makeSelectPswdVisibility = () =>
+  createSelector(
+    selectEmp,
+    empState => empState.is_password_visible,
+  );
+
+const makeSelectNewPswdVisibility = () =>
+  createSelector(
+    selectEmp,
+    empState => empState.is_new_password_visible,
+  );
+
+const makeSelectNewPswd = () =>
+  createSelector(
+    selectEmp,
+    empState => empState.new_password,
+  );
+
+export { makeSelectEmployees, makeSelectFormVisibility, makeSelectNewEmployee, makeSelectSelectedEmployee, makeSelectFilter, makeSelectFilteredEmployees, makeSelectPswdVisibility, makeSelectNewPswdVisibility, makeSelectNewPswd };

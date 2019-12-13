@@ -15,42 +15,41 @@
  *    }
  */
 
-import { CHANGE_CODE, CHANGE_EMAIL, CHECK_CREDENTIALS, CREATE_SESSION } from './constants';
+import { SET_VALUES, CHECK_CREDENTIALS, CREATE_SESSION } from './constants'
 
 /**
- * Changes the input field of the form
+ * Sends the form data to the reducer
  *
- * @param  {string} code The new text of the input field
- * @param  {string} email The new text of the input field
- * @param  {boolean} wasAccepted The new text of the input field
+ * @param  {string} code The user's code
+ * @param  {string} email The user's email
  *
- * @return {object} An action object with a type of CHANGE_USERNAME
+ * @return {object} An action object with the form data and a type of SET_VALUES
  */
-export function changeCode(code) {
+export function setValues(code, email) {
   return {
-    type: CHANGE_CODE,
+    type: SET_VALUES,
     code,
-  };
+    email
+  }
 }
 
-export function changeEmail(email) {
-  return {
-    type: CHANGE_EMAIL,
-    email,
-  };
-}
-
-export function checkCredentials(code) {
-  console.log("action");
+/**
+ * Action to trigger the login saga to check the user's credentials
+ * @return {object} An action object with the type of CHECK_CREDENTIALS
+ */
+export function checkCredentials() {
   return {
     type: CHECK_CREDENTIALS,
-    code,
-  };
+  }
 }
 
+/**
+ * Populates the owner variable and saves session data to localStorage
+ * @return {object} An action object with the owner attribute and the type of CREATE_SESSION
+ */
 export function createSession(owner){
   return {
     type: CREATE_SESSION,
     owner,
-  };
+  }
 }

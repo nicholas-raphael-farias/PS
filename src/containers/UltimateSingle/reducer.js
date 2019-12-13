@@ -10,15 +10,14 @@
 import produce from 'immer';
 import { 
   LOAD_PRODUCT,
-  CHANGE_FORM_STATE,
-  CHANGE_MOD_NAME,
-  CHANGE_MOD_TYPE,
+  SET_MOD_VALUES,
   SAVE_MOD,
   ADD_MOD,
-  CHANGE_OPT_NAME,
-  CHANGE_OPT_PRICE,
+  SET_OPT_VALUES,
   SAVE_OPT,
   ADD_OPT,
+  CHANGE_MOD_CHOICE,
+  CHANGE_FORM_STATE,
 } from './constants';
 import { da } from 'date-fns/esm/locale';
 
@@ -31,7 +30,8 @@ export const initialState = {
   is_vsbl_crt_mod: false,
   is_vsbl_crt_opt: false,
   mod_name: "",
-  mod_type: "",
+  is_mod_optional: false,
+  is_mod_multiple_choice: false,
   mod_to_add_opt: "",
   opt_name:"",
   opt_price:"",
@@ -46,11 +46,12 @@ const ultimateSReducer = (state = initialState, action) =>
         draft.product = action.product;
         break;
 
-      case CHANGE_MOD_NAME:
-        draft.mod_name = action.name;
-        break;
-      case CHANGE_MOD_TYPE:
-        draft.mod_type = action.mod_type;
+      case SET_MOD_VALUES:
+        console.log('action')
+        console.log(action)
+        draft.mod_name = action.modifier.name
+        draft.is_mod_optional = action.modifier.is_optional
+        draft.is_mod_multiple_choice = action.modifier.is_multiple_choice
         break;
 
       case SAVE_MOD:
@@ -63,23 +64,20 @@ const ultimateSReducer = (state = initialState, action) =>
         break;
 
       case CHANGE_FORM_STATE:
-          switch (action.form) {
-            case "crt_mod":            
-              draft.is_vsbl_crt_mod = action.new_state;
-              break;
-            case "crt_opt":
-              draft.is_vsbl_crt_opt = action.new_state;
-              draft.mod_to_add_opt = action.opts;
-              break;
-          }
-          break;
-
-      case CHANGE_OPT_NAME:
-        draft.opt_name = action.name;
+        switch (action.form) {
+          case "crt_mod":            
+            draft.is_vsbl_crt_mod = action.new_state;
+            break;
+          case "crt_opt":
+            draft.is_vsbl_crt_opt = action.new_state;
+            draft.mod_to_add_opt = action.opts;
+            break;
+        }
         break;
-      case CHANGE_OPT_PRICE:
-        draft.opt_price = action.price;
-        break;
+      case SET_OPT_VALUES:
+        draft.opt_name = action.option.name
+        draft.opt_price = action.option.price
+        break; 
       case SAVE_OPT:
         break;
       case ADD_OPT:

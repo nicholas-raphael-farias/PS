@@ -1,7 +1,7 @@
 /**
  * Gets the repositories of the user from Github
  */
-
+import { getServerUrl } from './../../utils/serverURL';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { CREATE_EMPLOYEE } from './constants';
 import { makeSelectName, makeSelectEmail, makeSelectPhone, makeSelectBirthday } from './selectors';
@@ -17,13 +17,8 @@ export function* sagaSaveEmployee() {
   const phone = yield select(makeSelectPhone());
   const birthday = yield select(makeSelectBirthday());
 
-   console.log(name)
-   console.log(email)
-   console.log(phone)
-   console.log(name)
 
-
-  const requestURL = `http://localhost:3030/employees`;
+  const requestURL = `${getServerUrl()}/employees`;
 
   try {
     const token = localStorage.getItem("PointOfSaleToken")
@@ -45,7 +40,7 @@ export function* sagaLoadEmployees() {
 
   console.log("saga employees");
 
-  const requestURL = `http://localhost:3030/employees`;
+  const requestURL = `${getServerUrl()}/employees`;
 
   try {
     const token = localStorage.getItem("PointOfSaleToken")

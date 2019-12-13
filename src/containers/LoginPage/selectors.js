@@ -22,7 +22,7 @@ const makeSelectEmail = () =>
 const makeSelectWasAccepted = () =>
   createSelector(
     selectLogin,
-    loginState => loginState.wasAccepted,
+    loginState => loginState.was_accepted,
   );
 
 export { makeSelectCode, makeSelectEmail, makeSelectWasAccepted };

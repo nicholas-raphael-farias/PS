@@ -19,7 +19,8 @@ const makeSelectModifier = () =>
     ultimateState => {
       return({
         name: ultimateState.mod_name,
-        type: ultimateState.mod_type,
+        is_multiple_choice: ultimateState.is_mod_multiple_choice,
+        is_optional: ultimateState.is_mod_optional,
         is_assigned: false,
         order: -1,
         options: [],

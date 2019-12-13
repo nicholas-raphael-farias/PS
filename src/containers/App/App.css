@@ -118,3 +118,58 @@
     transform: rotate(360deg);
   }
 }
+
+
+a{
+  text-decoration: none !important;
+}
+
+a:hover{
+  text-decoration: none !important;
+}
+
+
+
+.indexedStep {
+  color: white;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  background-color: rgba(54, 54, 54, 0.8);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.indexedStep.accomplished {
+  background-color: rgba(0, 116, 217, 1);
+}
+
+.padd{
+  width: 420px; 
+  height: 500px; 
+  display: flex; 
+  flex-flow: row wrap;
+  margin: auto; 
+  color: white; 
+  box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.75);
+}
+.paddElement{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 0 25%;
+  border: 1px solid white;
+  background-color: #ccc;
+}
+
+.paddElement:hover{
+  background-color: #ddd;
+}
+
+.error_message{
+  font-size: 12px;
+  color: red;
+  text-align: left;
+}

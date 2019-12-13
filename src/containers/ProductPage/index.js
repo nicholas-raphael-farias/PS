@@ -11,7 +11,7 @@ import Navbar from '../../components/Navbar';
 
 import { createModifier, saveProduct, loadProducts, makeFormVisible, changeProduct, changeMod, changeCategory, saveCategory } from './actions';
 import { makeSelectProducts, makeSelectFormVisibility, makeSelectNewProduct, makeSelectNewMod, makeSelectNewCategory, makeSelectSelectedProduct } from './selectors';
-
+import { getServerUrl } from './../../utils/serverURL';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -167,7 +167,7 @@ export function ProductPage({
 
   useEffect(() => {
 
-    const requestURL = `http://localhost:3030/products`;
+    const requestURL = `${getServerUrl()}/products`;
     try {
       const token = localStorage.getItem("PointOfSaleToken")
 

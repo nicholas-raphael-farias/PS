@@ -18,9 +18,9 @@ const makeSelectProduct = () =>
     selectProducts,
     productsState => {
       return{
-        name: productsState.productName,
-        hasPrice: productsState.productHasPrice,
-        price: productsState.productPrice,
+        name: productsState.product_name,
+        has_price: productsState.product_has_price,
+        price: productsState.product_price,
       };
     },
   );
@@ -30,10 +30,10 @@ const makeSelectNewProduct = () =>
     selectProducts,
     productsState => {
       return {
-        name: productsState.productName,
+        name: productsState.product_name,
         modifiers: [],
         type: 0,
-        price: productsState.productPrice,
+        price: productsState.product_price,
       };
     },
   );

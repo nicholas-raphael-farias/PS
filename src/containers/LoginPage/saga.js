@@ -1,25 +1,20 @@
 /**
- * Gets the repositories of the user from Github
+ * Checks the users credentials and creates the session
  */
-
+import { getServerUrl } from './../../utils/serverURL';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { CHECK_CREDENTIALS } from './constants';
-import { createSession, checkCredentials } from './actions';
+import { createSession } from './actions';
 import { makeSelectCode, makeSelectEmail } from './selectors';
 import request from './../../utils/request';
-/**
- * THIS CANT BE HERE 
- */
-const crypto = require('crypto');
 
 /**
  * 
  */
 export function* checkCredentialsSaga() {
-  // Select username from store
   const code = yield select(makeSelectCode());
   const email = yield select(makeSelectEmail());
-  const requestURL = `http://localhost:3030/authentication`;
+  const requestURL = `${getServerUrl()}/authentication`;
 
   try {
     const authResponse = yield call(request, requestURL, {
@@ -29,11 +24,10 @@ export function* checkCredentialsSaga() {
     });
 
     localStorage.setItem('PointOfSaleToken', authResponse.accessToken);
-    console.log(authResponse)
     yield put(createSession(authResponse.user));
 
   } catch (err) {
-    console.log("err")
+    console.log("login error")
     console.log(err)
   }
 }

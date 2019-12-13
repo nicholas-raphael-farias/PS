@@ -11,6 +11,8 @@ import es from 'date-fns/locale/es';
 
 import PropTypes from 'prop-types';
 
+import { getServerUrl } from './../../utils/serverURL';
+
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
@@ -21,6 +23,8 @@ import { useInjectSaga } from './../../utils/injectSaga';
 import { changeName, changeEmail, changePhone, changeBirthday, changeFormVisibility, createEmployee, changeFilterText, changeUpdteFormVisibility, updateEmployee, changeUpdateEmployee, loadEmployees } from './actions';
 
 import { makeSelectEmployees ,makeSelectName, makeSelectEmail, makeSelectPhone, makeSelectBirthday, makeSelectEmplFormVisibility, makeSelectFilterText, makeSelectEmployees2, makeSelectUpdteEmplFormVisibility, makeSelectToUpdteEmployee } from './selectors';
+
+import NewEmployeeForm from './../../components/NewEmployeeForm'
 
 import reducer from './reducer';
 import saga from './saga';
@@ -134,7 +138,7 @@ export function EmployeesPage({
 
   useEffect(() => {
 
-    const requestURL = `http://localhost:3030/employees`;
+    const requestURL = `${getServerUrl()}/employees`;
     try {
       const token = localStorage.getItem("PointOfSaleToken")
 
@@ -170,18 +174,8 @@ export function EmployeesPage({
       </div>
 
       { isEmplFormVisible ? 
-        <Form 
-          birthday={birthday} 
-          name={name} 
-          email={email} 
-          phone={phone} 
-          birthday={birthday} 
-          onChangeName={onChangeName}
-          onChangeEmail={onChangeEmail}
-          onChangePhone={onChangePhone}
-          onChangeBirthday={onChangeBirthday}
-          createEmployee={createEmployee}
-          /> : isUpdtEmplFormVisible ? <UpdateEmplForm employee={toUpdteEmployee} updateEmploye={updateEmployee} onChangeUpdateEmpl={onChangeUpdateEmpl} /> : <Table employees={filterText === '' ? employees : filteredEmployees} onChangeUpdateFormVisibility={onChangeUpdateFormVisibility}/> }
+        <NewEmployeeForm/>
+         : isUpdtEmplFormVisible ? <UpdateEmplForm employee={toUpdteEmployee} updateEmploye={updateEmployee} onChangeUpdateEmpl={onChangeUpdateEmpl} /> : <Table employees={filterText === '' ? employees : filteredEmployees} onChangeUpdateFormVisibility={onChangeUpdateFormVisibility}/> }
 
     </div>
   )

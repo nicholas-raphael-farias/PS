@@ -2,13 +2,16 @@
   "name": "ps",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://RalphMarks.github.io/PS",
   "dependencies": {
     "axios": "^0.19.0",
     "connected-react-router": "^6.5.2",
+    "crypto-js": "^3.1.9-1",
     "eslint-utils": "^1.4.1",
+    "formik": "^2.0.6",
+    "gh-pages": "^2.1.1",
     "history": "^4.10.1",
     "invariant": "^2.2.4",
-    "jointjs": "^2.2.0",
     "jquery": "^3.4.1",
     "react": "^16.9.0",
     "react-datepicker": "^2.9.6",
@@ -18,17 +21,22 @@
     "react-helmet": "^5.2.1",
     "react-redux": "^7.1.1",
     "react-router": "^5.0.1",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "3.1.1",
+    "react-step-progress-bar": "^1.0.3",
     "redux": "^4.0.4",
     "redux-saga": "^1.1.1",
     "reselect": "^4.0.0",
-    "styled-components": "^4.3.2"
+    "styled-components": "^4.3.2",
+    "yup": "^0.27.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "react-scripts build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"

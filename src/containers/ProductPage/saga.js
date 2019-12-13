@@ -1,5 +1,4 @@
-
-
+import { getServerUrl } from './../../utils/serverURL';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { SAVE_PRODUCT, SAVE_CATEGORY } from './constants';
 import { makeSelectNewProduct, makeSelectNewCategory, makeSelectSelectedProduct } from './selectors';
@@ -10,7 +9,7 @@ import produce from 'immer';
 export function* sagaSaveProduct() {
   // Select username from store
   const product = yield select(makeSelectNewProduct());
-  const requestURL = `http://localhost:3030/products`;
+  const requestURL = `${getServerUrl()}/products`;
 
   try {
     const token = localStorage.getItem("PointOfSaleToken")
@@ -35,7 +34,7 @@ const product = yield select(makeSelectSelectedProduct());
 
 
 
-const requestURL = `http://localhost:3030/products/${product._id}`;
+const requestURL = `${getServerUrl()}/products/${product._id}`;
 try {
 
   const token = localStorage.getItem("PointOfSaleToken")

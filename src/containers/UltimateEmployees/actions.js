@@ -20,20 +20,16 @@ import {
   SAVE_EMPLOYEE,
   CREATE_EMPLOYEE,
   CHANGE_VISIBILITY,
-  CHANGE_EMPLOYEE_NAME,
-  CHANGE_EMPLOYEE_EMAIL,
-  CHANGE_EMPLOYEE_PHONE,
-  CHANGE_EMPLOYEE_BIRTHDAY,
   DELETE_EMPLOYEE,
   DELETED_EMPLOYEE,
   SELECT_EMPLOYEE,
-  UPDATE_EMPLOYEE_NAME,
-  UPDATE_EMPLOYEE_EMAIL,
-  UPDATE_EMPLOYEE_PHONE,
-  UPDATE_EMPLOYEE_BIRTHDAY,
   UPDATE_EMPLOYEE,
   UPDATED_EMPLOYEE,
   CHANGE_FILTER,
+  UPDATE_PASSWORD,
+  UPDATED_PASSWORD,
+  CHANGE_NEW_PASSWORD,
+  SET_VALUES,
  } from './constants';
 
 /**
@@ -86,33 +82,13 @@ export function changeVisibility(who, visibility) {
 
 
 /**
- * 
- * @param {string} property product property to be change
- * * @param {string} value value to be change
- * @return {object} An action object with a type of CHANGE_PRODUCT_NAME or CHANGE_PRODUCT_PRICE
- */
-export function changeEmployee(property, value){
-  switch (property) {
-    case "name":
-    return { type: CHANGE_EMPLOYEE_NAME, name: value};
-    case "email":
-    return { type: CHANGE_EMPLOYEE_EMAIL, email: value};
-    case "phone":
-    return { type: CHANGE_EMPLOYEE_PHONE, phone: value};
-    case "birthday":
-    return { type: CHANGE_EMPLOYEE_BIRTHDAY, birthday: value};
-  }
-}
-
-
-/**
  * Changes the input field of the form
  * @return {object} An action object with a type of DELETE_EMPLOYEE
  */
-export function deleteEmployee(_id) {
+export function deleteEmployee(employee) {
   return {
     type: DELETE_EMPLOYEE,
-    _id,
+    employee,
   };
 }
 
@@ -142,32 +118,13 @@ export function selectEmployee(_id) {
 
 
 /**
- * 
- * @param {string} property product property to be change
- * * @param {string} value value to be change
- * @return {object} An action object with a type of CHANGE_PRODUCT_NAME or CHANGE_PRODUCT_PRICE
- */
-export function updateEmployee(property, value){
-  switch (property) {
-    case "name":
-    return { type: UPDATE_EMPLOYEE_NAME, name: value};
-    case "email":
-    return { type: UPDATE_EMPLOYEE_EMAIL, email: value};
-    case "phone":
-    return { type: UPDATE_EMPLOYEE_PHONE, phone: value};
-    case "birthday":
-    return { type: UPDATE_EMPLOYEE_BIRTHDAY, birthday: value};
-  }
-}
-
-
-/**
  * Changes the input field of the form
  * @return {object} An action object with a type of DELETE_EMPLOYEE
  */
-export function updateSelectedEmployee() {
+export function updateSelectedEmployee(employee_data) {
   return {
     type: UPDATE_EMPLOYEE,
+    employee_data,
   };
 }
 
@@ -186,12 +143,60 @@ export function updatedEmployee(employee) {
 
 /**
  * Changes the input field of the form
- * @param  {object} employeee Empleado de saga para actualizar 
+ * @param  {object} employee Empleado de saga para actualizar 
  * @return {object} An action object with a type of UPDATED_EMPLOYEE
  */
 export function changeFilter(filter) {
   return {
     type: CHANGE_FILTER,
     filter,
+  };
+}
+
+/**
+ * Changes the input field of the form
+ * @param  {string} password to be updated
+ * @return {object} An action object with a type of UPDATE_PASSWORD
+ */
+export function changeNewPswd(password) {
+  return {
+    type: CHANGE_NEW_PASSWORD,
+    password,
+  };
+}
+
+/**
+ * Changes the input field of the form
+ * @return {object} An action object with a type of UPDATE_PASSWORD
+ */
+export function updatePassword(new_password) {
+  return {
+    type: UPDATE_PASSWORD,
+    new_password
+  };
+}
+
+/**
+ * Changes the input field of the form
+ * @param  {object} employee Empleado de saga para actualizar
+ * @return {object} An action object with a type of UPDATED_PASSWORD
+ */
+export function updatedPassword(employee) {
+  return {
+    type: UPDATED_PASSWORD,
+    employee,
+  };
+}
+
+
+/**
+ * Sets the create employee form values on the reducer
+ * @param  {object} values an object with the new employee data
+ * @return {object} An action object with a type of SET_VALUES and the new employee data
+ */
+export function setValues(new_employee_data) {
+  return {
+    type: SET_VALUES,
+    new_employee_data,
   };
 }

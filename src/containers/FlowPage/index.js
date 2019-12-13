@@ -11,6 +11,8 @@ import { useInjectSaga } from './../../utils/injectSaga';
 import { loadProducts, chooseProduct, dragAndDrop, addAndDrop, unassignModifier, addFirstItem, saveModifiers } from './actions';
 import { makeSelectProducts, makeSelectChosenProduct } from './selectors';
 
+import { getServerUrl } from './../../utils/serverURL';
+
 import reducer from './reducer';
 import saga from './saga';
 import produce from 'immer';
@@ -143,7 +145,7 @@ export function FlowPage ({
   useInjectSaga({ key, saga });
 
   useEffect(() => {
-    const requestURL = `http://localhost:3030/products`;
+    const requestURL = `${getServerUrl()}/products`;
     try {
       const token = localStorage.getItem("PointOfSaleToken")
 

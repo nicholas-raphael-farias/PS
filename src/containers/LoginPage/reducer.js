@@ -7,34 +7,32 @@
  *
  */
 
-import produce from 'immer';
-import { CHANGE_CODE, CHANGE_EMAIL, CREATE_SESSION, CHECK_CREDENTIALS } from './constants';
+import produce from 'immer'
+import { SET_VALUES, CREATE_SESSION, CHECK_CREDENTIALS } from './constants'
 
-// The initial state of the App
+// The initial state of LoginPage
 export const initialState = {
   code: '',
   email: '',
-  wasAccepted: false,
+  was_accepted: false,
   owner: {},
-};
+}
 
 /* eslint-disable default-case, no-param-reassign */
 const loginReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
-      case CHANGE_CODE:
-        draft.code = action.code;
-        break;
-      case CHANGE_EMAIL:
-        draft.email = action.email;
-        break;
+      case SET_VALUES:
+        draft.code = action.code
+        draft.email = action.email
+        break
       case CREATE_SESSION:
-        draft.wasAccepted = true;
-        draft.owner = action.owner;
-        break;
+        draft.was_accepted = true
+        draft.owner = action.owner
+        break
       case CHECK_CREDENTIALS:
-        break;
+        break
     }
   });
 
-export default loginReducer;
+export default loginReducer

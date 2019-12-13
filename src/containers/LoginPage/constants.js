@@ -9,7 +9,6 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-export const CHANGE_CODE = 'ps/LoginPage/CHANGE_CODE';
-export const CHANGE_EMAIL = 'ps/LoginPage/CHANGE_EMAIL';
-export const CHECK_CREDENTIALS = 'ps/LoginPage/CHECK_CREDENTIALS';
-export const CREATE_SESSION = 'ps/LoginPage/CREATE_SESSION';
+export const CHECK_CREDENTIALS = 'ps/LoginPage/CHECK_CREDENTIALS'
+export const CREATE_SESSION = 'ps/LoginPage/CREATE_SESSION'
+export const SET_VALUES = 'ps/LoginPage/SET_VALUES'

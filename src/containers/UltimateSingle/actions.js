@@ -1,12 +1,10 @@
 import { 
   LOAD_PRODUCT,
   CHANGE_FORM_STATE,
-  CHANGE_MOD_NAME,
-  CHANGE_MOD_TYPE,
+  SET_MOD_VALUES,
   SAVE_MOD,
   ADD_MOD,
-  CHANGE_OPT_NAME,
-  CHANGE_OPT_PRICE,
+  SET_OPT_VALUES,
   SAVE_OPT,
   ADD_OPT,
  } from './constants';
@@ -44,12 +42,10 @@ export function changeFormState(form, new_state, opts){
  * * @param {string} value value to be change
  * @return {object} An action object with a type of CHANGE_PRODUCT_NAME or CHANGE_PRODUCT_PRICE
  */
-export function changeMod(property, value){
-  switch (property) {
-    case "name":
-      return { type: CHANGE_MOD_NAME, name: value};
-    case "type":
-      return { type: CHANGE_MOD_TYPE, mod_type: value};
+export function setModValues(modifier){
+  return{
+    type: SET_MOD_VALUES,
+    modifier,
   }
 }
 
@@ -57,14 +53,12 @@ export function changeMod(property, value){
  * 
  * @param {string} property product property to be change
  * * @param {string} value value to be change
- * @return {object} An action object with a type of CHANGE_OPT_NAME or CHANGE_OPT_PRICE
+ * @return {object} An action object with a type of CHANGE_PRODUCT_NAME or CHANGE_PRODUCT_PRICE
  */
-export function changeOpt(property, value){
-  switch (property) {
-    case "name":
-      return { type: CHANGE_OPT_NAME, name: value};
-    case "price":
-      return { type: CHANGE_OPT_PRICE, price: value};
+export function setOptValues(option){
+  return{
+    type: SET_OPT_VALUES,
+    option,
   }
 }
 

@@ -1,5 +1,4 @@
-
-
+import { getServerUrl } from './../../utils/serverURL';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { SAVE_MODIFIERS, UNASSIGN_MODIFIER } from './constants';
 import { makeSelectChosenProduct, makeSelectModToUnassign } from './selectors';
@@ -10,7 +9,7 @@ import produce from 'immer';
 export function* sagaSaveModifiers() {
   // Select username from store
   const selectedProduct = yield select(makeSelectChosenProduct());
-  const requestURL = `http://localhost:3030/products/${selectedProduct._id}`;
+  const requestURL = `${getServerUrl()}/products/${selectedProduct._id}`;
 
   try {
 
@@ -30,7 +29,7 @@ export function* sagaUnassignModifier() {
   // Select username from store
   const selectedProduct = yield select(makeSelectChosenProduct());
   const selectedToUnassign = yield select(makeSelectModToUnassign());
-  const requestURL = `http://localhost:3030/products/${selectedProduct._id}`;
+  const requestURL = `${getServerUrl()}/products/${selectedProduct._id}`;
 
   let toRemove = selectedProduct.modifiers.find(mod => mod.order === selectedToUnassign.order); 
   let toRemoveIndex = selectedProduct.modifiers.findIndex(mod => mod.order === selectedToUnassign.order); 

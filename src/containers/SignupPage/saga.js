@@ -1,7 +1,7 @@
 /**
  * Gets the repositories of the user from Github
  */
-
+import { getServerUrl } from './../../utils/serverURL';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { CREATE_OWNER } from './constants';
 import { updateOwner } from './actions';
@@ -21,7 +21,7 @@ export function* createOwnerSaga() {
   const email = yield select(makeSelectEmail());
   const code = yield select(makeSelectCode());
 
-  const requestURL = `http://localhost:3030/users`;
+  const requestURL = `${getServerUrl()}/users`;
 
   try {
     // Call our request helper (see 'utils/request')
