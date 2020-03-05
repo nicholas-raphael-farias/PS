@@ -9,4 +9,10 @@ const makeSelectNumber = () =>
     empState => empState.number,
   );
 
-export { makeSelectNumber };
+const makeSelectName = () =>
+  createSelector(
+    selectDemo,
+    empState => empState.name,
+  );
+
+export { makeSelectNumber, makeSelectName };

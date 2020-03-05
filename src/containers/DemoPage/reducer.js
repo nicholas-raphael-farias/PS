@@ -2,6 +2,7 @@ import produce from 'immer';
 import { ADD_TO_NUMBER } from './constants'
 export const initialState = {
   number: 0,
+  name: 'pepepasd',
 };
 
 /* eslint-disable default-case, no-param-reassign */

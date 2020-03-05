@@ -1,23 +1,29 @@
 import React, { memo } from 'react'
-import Navbar from '../../components/Navbar'
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { addToNumber } from './actions';
-import { makeSelectNumber } from './selectors';
+import { makeSelectNumber, makeSelectName } from './selectors';
 import reducer from './reducer';
 import { useInjectReducer } from './../../utils/injectReducer';
 
 const key = 'demo';
 
-const DemoPage = ({number, onAddToNumber}) => {
+const DemoPage = ({number, name,  onAddToNumber}) => {
 
   useInjectReducer({ key, reducer });
 
     return (
       <div>
         <h1>Demo {number}</h1>
+        <div>
+          <div>
+            <div>
+              {name}
+            </div>
+          </div>
+        </div>
         <div className="btn" onClick={() => onAddToNumber(Math.random() * 10)}>Agregar Numero</div>
       </div>
     )
@@ -28,6 +34,7 @@ DemoPage.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   number: makeSelectNumber(),
+  name: makeSelectName(),
 });
 
 export function mapDispatchToProps(dispatch) {
