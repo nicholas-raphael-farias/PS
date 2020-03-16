@@ -8,11 +8,12 @@ const Timeline = ({step_bar_helper}) => {
       <div className="col-8">
       <ProgressBar
         percent={(100/step_bar_helper.length)*step_bar_helper.filter(m => m.was_completed).length}
-        filledBackground="linear-gradient(to right, #fefb72, #f0bb31)">
+        filledBackground="black">
         
         <Step transition="scale">
           {({ accomplished, index }) => (
-            <div></div>  
+            <div className={"indexedStep"}>
+            </div> 
           )}
         </Step>
 
@@ -21,7 +22,7 @@ const Timeline = ({step_bar_helper}) => {
           <Step>
             {({ index }) => (
             <div className={`indexedStep ${modifier.was_completed ? "accomplished" : null}`}>
-              
+               {index}
             </div>
             )}
           </Step>

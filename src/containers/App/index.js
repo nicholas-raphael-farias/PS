@@ -22,6 +22,7 @@ import LoginEmployeesPage from './../LoginEmployeesPage/Loadable'
 import BuyProcessPage from './../BuyProcessPage/Loadable'
 import CheckoutPage from './../CheckoutPage/Loadable'
 import DemoPage from './../DemoPage'
+import PromosPage from '../PromosPage/Loadable'
 
 import { Redirect } from 'react-router'
 import { checkSession } from './../../utils/session'
@@ -46,6 +47,7 @@ function App() {
           <Route path="/cash"      render={() => checkSession() ? (<CashRegisterPage/>)   : (<Redirect to="/login" />)} />
           <Route path="/second"    render={() => checkSession() ? (<SecondPage/>)         : (<Redirect to="/login" />)} />
           <Route path="/products"  render={() => checkSession() ? (<ProductsPage/>)       : (<Redirect to="/login" />)} />
+          <Route path="/promos"  render={() => checkSession() ? (<PromosPage/>)       : (<Redirect to="/login" />)} />
           <Route exact path="/ultimate"  render={() => checkSession() ? (<UltimatePage/>) : (<Redirect to="/login" />)} />
           <Route path="/ultimate/:productId"  render={(props) => checkSession() ? (<UltimateSingle {...props} />)     : (<Redirect to="/login" />)} />
         </Switch>

@@ -1,10 +1,11 @@
 import produce from 'immer';
-import {ADD_MONEY, CANCEL_INCOME} from './constants';
+import {ADD_MONEY, CANCEL_INCOME, CHOOSE_PAYMENT_METHOD} from './constants';
 
 // The initial state of the App
 export const initialState = {
   total: 500,
   payed: 0,
+  payment_method: null,
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -16,6 +17,9 @@ const checkoutReducer = (state = initialState, action) =>
         break;
       case CANCEL_INCOME:
         draft.payed = 0;
+        break;
+      case CHOOSE_PAYMENT_METHOD:
+        draft.payment_method = action.payment_method
         break;
       default:
         break;

@@ -147,25 +147,35 @@ a:hover{
 }
 
 .padd{
-  width: 420px; 
-  height: 500px; 
+  max-width: 400px; 
   display: flex; 
   flex-flow: row wrap;
   margin: auto; 
-  color: white; 
-  box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.75);
 }
 .paddElement{
+  min-width: 40px;
+  min-height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: 1 0 25%;
-  border: 1px solid white;
-  background-color: #ccc;
+  flex: 1 0 20%;
+  background-color: rgb(255, 255, 255);
+  margin: 6px;
+  font-weight: bolder;
+}
+
+.paddElement.billElement{
+  max-height: 60px;
 }
 
 .paddElement:hover{
-  background-color: #ddd;
+  background-color: rgb(233, 233, 233);
+  cursor: pointer;
+}
+
+.paddElement:hover{
+  background-color: rgb(233, 233, 233);
+  cursor: pointer;
 }
 
 .error_message{

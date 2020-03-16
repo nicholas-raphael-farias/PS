@@ -11,3 +11,5 @@
 
 export const ADD_MONEY = 'ps/CheckoutPage/ADD_MONEY';
 export const CANCEL_INCOME = 'ps/CheckoutPage/CANCEL_INCOME';
+export const CHOOSE_PAYMENT_METHOD = 'ps/CheckoutPage/CHOOSE_PAYMENT_METHOD';
+export const SAVE_TICKET = 'ps/CheckoutPage/SAVE_TICKET';

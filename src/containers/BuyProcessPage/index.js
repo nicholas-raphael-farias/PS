@@ -12,11 +12,12 @@ import { useInjectSaga } from './../../utils/injectSaga';
 
 import {getServerUrl} from './../../utils/serverURL';
 
-import { loadProducts, addToTicket, addOption, selectOption, addSelectedOptions, cancelProduct, editModifier, addEditedOption, addEditedSelectedOptions, deleteProduct, redirectToCheckout } from './actions';
+import { loadProducts, addToTicket, addOption, selectOption, addSelectedOptions, cancelProduct, editModifier, addEditedOption, addEditedSelectedOptions, deleteProduct, redirectToCheckout, saveTicket } from './actions';
 
 import { makeSelectProducts, makeSelectBoughtProducts, makeSelectProductModifiers, makeSelectTicketSubtotal, makeSelectActiveModifier, makeSelectActiveProduct, makeSelectStepBarHelper, makeSelectIsActiveEdit, makeSelectIsReadyToCheckout } from './selectors';
 
 import reducer from './reducer';
+import saga from './saga';
 
 import Ticket from './../../components/Ticket'
 import Chooser from './../../components/Chooser'
@@ -47,6 +48,7 @@ export function BuyProcessPage({
   onAddEditedSelectedOption,
   onDeleteProduct,
   onRedirectToCheckout,
+  onSaveTicket,
 }) {
 
   useEffect(()=>{
@@ -68,6 +70,7 @@ export function BuyProcessPage({
   },[])
   
   useInjectReducer({ key, reducer });
+  useInjectSaga({key, saga});
     
   return (
     <div className="container-fluid">
@@ -86,14 +89,17 @@ export function BuyProcessPage({
           onSelectOption={onSelectOption}
           onAddSelectedOption={onAddSelectedOption}
           onCancelProduct={onCancelProduct}
-          onRedirectToCheckout={onRedirectToCheckout}
         />
         }
         <Ticket 
         bought_products={bought_products} 
         subtotal={subtotal}
         onEditModifier={onEditModifier}
-        onDeleteProduct={onDeleteProduct}/>
+        onDeleteProduct={onDeleteProduct}
+        onRedirectToCheckout={onRedirectToCheckout}
+        product_modifiers={product_modifiers}
+        onCancelProduct={onCancelProduct}
+        onSaveTicket={onSaveTicket} />
       </div>
     </div>
   )
@@ -126,6 +132,7 @@ export function BuyProcessPage({
       onAddEditedSelectedOption: (opts, modifier) => dispatch(addEditedSelectedOptions(opts, modifier)),
       onDeleteProduct: (ticket_id) => dispatch(deleteProduct(ticket_id)),
       onRedirectToCheckout: () => dispatch(redirectToCheckout()),
+      onSaveTicket: () => dispatch(saveTicket()),
     };
   }
   

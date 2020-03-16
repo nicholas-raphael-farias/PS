@@ -30,12 +30,8 @@ const FinishBuyingProcessBtn = ({onRedirectToCheckout}) => {
 const Chooser = ({products, onAddToTicket, product_modifiers, active_modifier, step_bar_helper, onAddOption, onSelectOption, onAddSelectedOption, onCancelProduct, onRedirectToCheckout}) => {
 
   return (
-    <div className="col-8" style={{height:"100vh", backgroundColor:"lightblue"}}>
-      <h1>Chooser</h1> 
-
-      {product_modifiers.length === 0 ? null : 
-        <CancelBtn onCancelProduct={onCancelProduct}/>
-      }
+    <div className="col-8" style={{height:"100vh"}}>
+      <h1>Productos</h1> 
 
       {product_modifiers.length === 0 ? 
       <div className="row">
@@ -52,9 +48,6 @@ const Chooser = ({products, onAddToTicket, product_modifiers, active_modifier, s
       </div>
     
     }
-
-    {product_modifiers.length === 0 ? 
-      <FinishBuyingProcessBtn onRedirectToCheckout={onRedirectToCheckout}/> : null}
       
 
     </div>

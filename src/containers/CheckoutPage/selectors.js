@@ -21,4 +21,10 @@ const makeSelectChange = () =>
     empState => empState.payed - empState.total < 0 ? '' : `${empState.payed - empState.total}`,
   );
 
-export { makeSelectPayed, makeSelectTotal, makeSelectChange };
+const makeSelectPaymentMethod = () =>
+  createSelector(
+    selectBuy,
+    empState => empState.payment_method,
+  );
+
+export { makeSelectPayed, makeSelectTotal, makeSelectChange, makeSelectPaymentMethod };

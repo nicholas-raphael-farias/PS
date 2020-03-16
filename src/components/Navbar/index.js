@@ -33,8 +33,8 @@ class Navbar extends React.Component {
             <li className={(this.props.is_active === 'product') ? 'nav-item active' : 'nav-item'}>
               <a className="nav-link" href="/PS/ultimate">Products</a>
             </li>
-            <li className={(this.props.is_active === 'analytics') ? 'nav-item active' : 'nav-item'}>
-              <a className="nav-link" href="/PS/analytics">Analytics</a>
+            <li className={(this.props.is_active === 'promos') ? 'nav-item active' : 'nav-item'}>
+              <a className="nav-link" href="/PS/promos">Promos</a>
             </li>
             <li className={(this.props.is_active === 'flow') ? 'nav-item active' : 'nav-item'}>
               <a className="nav-link" href="/PS/flow">Flujo</a>

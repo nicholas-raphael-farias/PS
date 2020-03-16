@@ -1,4 +1,4 @@
-import { ADD_MONEY, CANCEL_INCOME } from './constants'
+import { ADD_MONEY, CANCEL_INCOME, CHOOSE_PAYMENT_METHOD } from './constants'
 
 /**
  * Changes the input field of the form
@@ -19,5 +19,18 @@ export function addMoney(amount) {
 export function cancelIncome() {
   return {
     type: CANCEL_INCOME,
+  };
+}
+
+
+/**
+ * Resets the money given by the client
+ * @param  {string} payment_method payment with card or cash 
+ * @return {object} An action object with a type of CANCEL_INCOME
+ */
+export function choosePaymentMethod(payment_method) {
+  return {
+    type: CHOOSE_PAYMENT_METHOD,
+    payment_method,
   };
 }

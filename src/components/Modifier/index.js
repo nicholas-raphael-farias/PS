@@ -6,7 +6,7 @@ import ModifierSelect from './../ModifierSelect'
 
 const OptionalModifierBtn = ({modifier_name, options, onAddSelectedOption}) => {
   return(
-    <div className="btn btn-info" style={{position:"absolute", bottom:"40px", right:"40px"}}
+    <div className="btn btn-dark" style={{position:"absolute", bottom:"40px", right:"40px"}}
     onClick={()=> onAddSelectedOption(options, modifier_name)}>
         Continuar
     </div>

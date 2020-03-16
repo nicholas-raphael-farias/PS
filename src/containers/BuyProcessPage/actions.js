@@ -10,7 +10,8 @@ import {
   ADD_EDITED_OPTION,
   ADD_EDITED_SELECTED_OPTIONS,
   DELETE_PRODUCT,
-  REDIRECT_TO_CHECKOUT } from './constants'
+  REDIRECT_TO_CHECKOUT,
+  SAVE_TICKET} from './constants'
 
 /**
  * Changes the input field of the form
@@ -162,5 +163,15 @@ export function deleteProduct(ticket_id) {
 export function redirectToCheckout() {
   return {
     type: REDIRECT_TO_CHECKOUT,
+  };
+}
+
+/**
+ * Save ticket 
+ * @return {object} An action object with a type of SAVE_TICKET
+ */
+export function saveTicket() {
+  return {
+    type: SAVE_TICKET,
   };
 }

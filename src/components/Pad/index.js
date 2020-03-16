@@ -21,10 +21,10 @@ const Pad = ({onAddMoney}) => {
   ]
 
   return (
-    <div className="col-8" style={{marginTop:"40px"}}>
+    <div className="col-12 col-md-8" style={{marginTop:"40px"}}>
       <div className="padd">
         {elements.map(e => 
-          <div onClick={() => onAddMoney(e.value)} className="paddElement">
+          <div onClick={() => onAddMoney(e.value)} className={e.is_bill ? "paddElement": "paddElement"}>
             {e.is_bill ? <img style={{width:"90%"}} src={`/PS/${e.img}`} /> : e.value}
           </div>)}
       </div>

@@ -21,3 +21,4 @@ export const ADD_EDITED_SELECTED_OPTIONS = 'ps/BuyProcessPage/ADD_EDITED_SELECTE
 export const DELETE_PRODUCT = 'ps/BuyProcessPage/DELETE_PRODUCT';
 export const CLICK_BAD_PRODUCT = 'ps/BuyProcessPage/CLICK_BAD_PRODUCT';
 export const REDIRECT_TO_CHECKOUT = 'ps/BuyProcessPage/REDIRECT_TO_CHECKOUT';
+export const SAVE_TICKET = 'ps/BuyProcessPage/SAVE_TICKET';

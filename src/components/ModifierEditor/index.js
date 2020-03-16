@@ -17,7 +17,7 @@ const CancelBtn = ({onCancelProduct}) => {
 
 const ModifierEditor = ({active_modifier, onCancelProduct, onAddEditedOption, onSelectOption, onAddEditedSelectedOption}) => {
   return (
-    <div className="col-8" style={{height:"100vh", backgroundColor:"lightblue"}}>
+    <div className="col-8" style={{height:"100vh"}}>
         
       <CancelBtn onCancelProduct={onCancelProduct}/>
     
