@@ -12,4 +12,7 @@
 export const ADD_MONEY = 'ps/CheckoutPage/ADD_MONEY';
 export const CANCEL_INCOME = 'ps/CheckoutPage/CANCEL_INCOME';
 export const CHOOSE_PAYMENT_METHOD = 'ps/CheckoutPage/CHOOSE_PAYMENT_METHOD';
-export const SAVE_TICKET = 'ps/CheckoutPage/SAVE_TICKET';
+export const LOAD_TICKET = 'ps/CheckoutPage/LOAD_TICKET';
+export const SAVE_PAYMENT_METHOD = 'ps/CheckoutPage/SAVE_PAYMENT_METHOD';
+export const PAY_TICKET = 'ps/CheckoutPage/PAY_TICKET';
+export const CHANGE_PAD_TYPE = 'ps/CheckoutPage/CHANGE_PAD_TYPE';

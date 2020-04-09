@@ -8,7 +8,14 @@
  */
 
 import produce from 'immer';
-import { LOAD_PROMOS, CHANGE_VALUE, CHANGE_NP_VALUE, RESET_CRT_PROMO_FORM, SELECT_PROMO } from './constants';
+import { 
+  LOAD_PROMOS, 
+  CHANGE_VALUE, 
+  CHANGE_NP_VALUE, 
+  RESET_CRT_PROMO_FORM, 
+  SELECT_PROMO,
+  CREATE_PROMO,
+  REMOVE_PROMO} from './constants';
 
 // The initial state of the App
 export const initialState = {
@@ -49,7 +56,13 @@ const PromosReducer = (state = initialState, action) =>
       case SELECT_PROMO:
         console.log('select select')
         draft.selected_promo = action.id; 
-      break;
+        break;
+      case CREATE_PROMO:
+        draft.promos = draft.promos.concat(action.promo)
+        break;
+      case REMOVE_PROMO:
+        draft.promos = draft.promos.filter(p => p._id !== action.promo_id)
+        break;
     }
   });
 

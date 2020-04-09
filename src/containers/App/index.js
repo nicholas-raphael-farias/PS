@@ -23,6 +23,8 @@ import BuyProcessPage from './../BuyProcessPage/Loadable'
 import CheckoutPage from './../CheckoutPage/Loadable'
 import DemoPage from './../DemoPage'
 import PromosPage from '../PromosPage/Loadable'
+import TicketsPage from '../TicketsPage/Loadable'
+import TicketDetailPage from '../TicketDetailPage/Loadable'
 
 import { Redirect } from 'react-router'
 import { checkSession } from './../../utils/session'
@@ -48,6 +50,8 @@ function App() {
           <Route path="/second"    render={() => checkSession() ? (<SecondPage/>)         : (<Redirect to="/login" />)} />
           <Route path="/products"  render={() => checkSession() ? (<ProductsPage/>)       : (<Redirect to="/login" />)} />
           <Route path="/promos"  render={() => checkSession() ? (<PromosPage/>)       : (<Redirect to="/login" />)} />
+          <Route exact path="/tickets"  render={() => checkSession() ? (<TicketsPage/>)       : (<Redirect to="/login" />)} />
+          <Route path="/tickets/:ticketId"  render={(props) => checkSession() ? (<TicketDetailPage {...props} />)     : (<Redirect to="/login" />)} />
           <Route exact path="/ultimate"  render={() => checkSession() ? (<UltimatePage/>) : (<Redirect to="/login" />)} />
           <Route path="/ultimate/:productId"  render={(props) => checkSession() ? (<UltimateSingle {...props} />)     : (<Redirect to="/login" />)} />
         </Switch>

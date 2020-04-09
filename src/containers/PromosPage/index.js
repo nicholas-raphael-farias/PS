@@ -83,46 +83,6 @@ const NewPromoForm =({new_promo, products, onChangeNpValue, onSavePromo}) => {
     </div>
   );
 }
-
-const UpdateEmplForm = (props) => {
-  return(
-    <div className="row justify-content-center" style={{marginTop:'5vh'}}>
-      <div className="col-4 card">
-        <div className="card-body" style={{textAlign:'left'}}>
-          <div className="form-group">
-            <label>Nombre(s)</label>
-            <input name="updatedName" type="text" className="form-control" placeholder="Nombre(s)" value={props.employee.name} onChange={(evt) => props.onChangeUpdateEmpl("name", evt.target.value)}/>
-          </div>
-          <div className="form-group">
-            <label>Email</label>
-            <input name="updatedEmail" type="email" className="form-control" placeholder="Email" value={props.employee.email} />
-          </div>
-          <div className="form-group">
-            <label>Teléfono</label>
-            <input name="updatedPhone" type="text" className="form-control" placeholder="Teléfono" value={props.employee.phone} />
-          </div>
-          <div className="form-group">
-            <label>Cumpleaños</label> <br/>
-            <DatePicker
-              locale="es"
-              name="updatedBirthday"
-              className="form-control"
-              selected={new Date(props.employee.birthday)}
-              showMonthDropdown
-              showYearDropdown
-            />
-          </div>
-          <div className="btn btn-dark" onClick={props.updateEmploye}>
-            Actualizar
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-
-
 export function PromosPage({
   promos,
   new_promo,
@@ -180,7 +140,6 @@ export function PromosPage({
   return (
     <div>
       <Navbar is_active='promos'/>
-      <h1>Promociones</h1>
       <div style={{position:'absolute', top:'64px', right:'320px'}}>
       <div className="btn btn-dark" onClick={() => {onChangeValue({name:'is_visible_crt_modal', value: true})}}>Crear promocion</div>
       </div>
@@ -200,7 +159,7 @@ export function PromosPage({
           products={products} 
           onChangeNpValue={onChangeNpValue}
           onSavePromo={onSavePromo}/> : 
-        <TablePromos promos={promos} onSelectPromo={onSelectPromo} onDeletePromo={onDeletePromo}/> }
+        <TablePromos promos={promos} products={products} onSelectPromo={onSelectPromo} onDeletePromo={onDeletePromo}/> }
       
     </div>
   )

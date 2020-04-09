@@ -13,12 +13,6 @@ const makeSelectParam = (param) =>
     selectPromos => selectPromos[param],
   )
 
-const makeSelectPromos = () =>
-  createSelector(
-    selectPromos,
-    discountsState => discountsState.promos,
-  );
-
 const makeSelectNewPromo = () =>
   createSelector(
     selectPromos,
@@ -27,4 +21,4 @@ const makeSelectNewPromo = () =>
 
 
 
-  export { makeSelectNewPromo, makeSelectParam};
+  export { makeSelectNewPromo, makeSelectParam };

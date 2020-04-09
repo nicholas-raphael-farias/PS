@@ -8,7 +8,8 @@
  */
 
 import produce from 'immer';
-import { 
+import {
+  LOAD_PROMOS, 
   LOAD_PRODUCTS, 
   ADD_TO_TICKET, 
   ADD_OPTION, 
@@ -19,10 +20,14 @@ import {
   ADD_EDITED_OPTION,
   ADD_EDITED_SELECTED_OPTIONS,
   DELETE_PRODUCT,
-  REDIRECT_TO_CHECKOUT } from './constants';
+  REDIRECT_TO_CHECKOUT, 
+  CHANGE_EVENT,
+  VALIDATE_PROMO,
+  SAVE_TICKET} from './constants';
 
 // The initial state of the App
 export const initialState = {
+  promos: [],
   products:[],
   bought_products:[],
   product_count:0,
@@ -34,12 +39,18 @@ export const initialState = {
   active_product:'',
   is_active_edit_form: false,
   is_ready_to_checkout: false,
+  promo_code: '',
+  discounts:[],
+  ticket_id: '',
 };
 
 /* eslint-disable default-case, no-param-reassign */
 const buyProcessReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
+      case LOAD_PROMOS:
+        draft.promos = action.promos;
+        break;
       case LOAD_PRODUCTS:
         draft.products = action.products;
         break;
@@ -166,11 +177,6 @@ const buyProcessReducer = (state = initialState, action) =>
   
         break;
       case ADD_EDITED_SELECTED_OPTIONS:
-
-
-          console.log("action")
-          console.log(action.modifiers)
-          console.log(action.modifier_name)
   
           let productES = draft.bought_products.find(p => p.ticket_id === draft.active_product)
           let product_indexES = draft.bought_products.findIndex(p => p.ticket_id === draft.active_product)
@@ -196,7 +202,41 @@ const buyProcessReducer = (state = initialState, action) =>
           }
           break;
       case REDIRECT_TO_CHECKOUT:
+        draft.ticket_id = action.ticket_id;
         draft.is_ready_to_checkout = true;
+        break;
+      case CHANGE_EVENT:
+        draft[action.evt.target.name] = action.evt.target.value;
+        break;
+      case VALIDATE_PROMO:
+        //const promo_id = draft.promo_code;
+        //const promo = draft.promos.find(p => p._id === promo_id);
+        //console.log(draft.promo_code); 
+        if (draft.promos.some(promo => promo._id === draft.promo_code)) {
+          const promo = draft.promos.find(promo => promo._id === draft.promo_code);
+          alert('existe la promo');
+          if (draft.bought_products.some(product => product._id == promo.producto)) {
+            const producto = draft.bought_products.find(product => product._id == promo.producto);
+            alert('esta el producto promocionado');
+            console.log('producto');
+            console.log(producto);
+
+            const product_cost = parseInt(producto.price) + producto.modifiers.reduce((subtotal_modifiers, m) => {
+
+              const subtotal_options = m.options.reduce((subtotal_options, o) => subtotal_options + parseInt(o.price) , 0)
+    
+              return subtotal_modifiers + parseInt(subtotal_options)
+          }, 0);
+
+            draft.discounts = draft.discounts.concat(product_cost * (promo.porcentaje/100));
+          }
+        } else {
+
+        }
+        draft.promo_code = ''
+
+        break;
+        case SAVE_TICKET:
         break;
       default:
         break;

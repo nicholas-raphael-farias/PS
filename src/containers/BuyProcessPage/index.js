@@ -12,9 +12,9 @@ import { useInjectSaga } from './../../utils/injectSaga';
 
 import {getServerUrl} from './../../utils/serverURL';
 
-import { loadProducts, addToTicket, addOption, selectOption, addSelectedOptions, cancelProduct, editModifier, addEditedOption, addEditedSelectedOptions, deleteProduct, redirectToCheckout, saveTicket } from './actions';
+import { loadPromos, loadProducts, addToTicket, addOption, selectOption, addSelectedOptions, cancelProduct, editModifier, addEditedOption, addEditedSelectedOptions, deleteProduct, redirectToCheckout, saveTicket, change, validatePromo } from './actions';
 
-import { makeSelectProducts, makeSelectBoughtProducts, makeSelectProductModifiers, makeSelectTicketSubtotal, makeSelectActiveModifier, makeSelectActiveProduct, makeSelectStepBarHelper, makeSelectIsActiveEdit, makeSelectIsReadyToCheckout } from './selectors';
+import { makeSelectProducts, makeSelectBoughtProducts, makeSelectProductModifiers, makeSelectTicketSubtotal, makeSelectActiveModifier, makeSelectActiveProduct, makeSelectStepBarHelper, makeSelectIsActiveEdit, makeSelectIsReadyToCheckout, makeSelectPromoCode, makeSelectPromos, makeSelectDiscount, makeSelectTicketId } from './selectors';
 
 import reducer from './reducer';
 import saga from './saga';
@@ -37,6 +37,11 @@ export function BuyProcessPage({
   step_bar_helper,
   is_active_edit,
   is_ready_to_checkout,
+  promo_code,
+  promos,
+  discount,
+  ticket_id,
+  onLoadPromos,
   onLoadProducts,
   onAddToTicket,
   onAddOption,
@@ -49,17 +54,31 @@ export function BuyProcessPage({
   onDeleteProduct,
   onRedirectToCheckout,
   onSaveTicket,
+  onChange,
+  onPromoValidation,
 }) {
 
   useEffect(()=>{
 
     const requestURL = `${getServerUrl()}/products`;
+    const requestPromosURL = `${getServerUrl()}/promos`;
     try {
 
       axios.get(requestURL)
       .then(({ data }) => {
-        console.log(data.data);
         onLoadProducts(data.data);
+
+        try {
+          axios.get(requestPromosURL)
+          .then(({ data }) => {
+            onLoadPromos(data);
+          });
+    
+        } catch (err) {
+          console.log("err")
+          console.log(err)
+        }
+
       });
 
     } catch (err) {
@@ -76,7 +95,7 @@ export function BuyProcessPage({
     <div className="container-fluid">
       <div className="row">
 
-        { is_ready_to_checkout ? <Redirect to="/employees/checkout" />  : null }
+        { is_ready_to_checkout ? <Redirect to={`/employees/checkout?ticket_id=${ticket_id}`} />  : null }
         {is_active_edit ? <ModifierEditor active_modifier={active_modifier} onCancelProduct={onCancelProduct} onAddEditedOption={onAddEditedOption} onSelectOption={onSelectOption} onAddEditedSelectedOption={onAddEditedSelectedOption}/> :
 
           <Chooser 
@@ -92,14 +111,18 @@ export function BuyProcessPage({
         />
         }
         <Ticket 
-        bought_products={bought_products} 
+        bought_products={bought_products}
+        product_modifiers={product_modifiers}
         subtotal={subtotal}
+        promo_code={promo_code}
+        discount={discount}
         onEditModifier={onEditModifier}
         onDeleteProduct={onDeleteProduct}
         onRedirectToCheckout={onRedirectToCheckout}
-        product_modifiers={product_modifiers}
         onCancelProduct={onCancelProduct}
-        onSaveTicket={onSaveTicket} />
+        onSaveTicket={onSaveTicket} 
+        onChange={onChange}
+        onPromoValidation={onPromoValidation}/>
       </div>
     </div>
   )
@@ -117,10 +140,15 @@ export function BuyProcessPage({
     step_bar_helper: makeSelectStepBarHelper(),
     is_active_edit: makeSelectIsActiveEdit(),
     is_ready_to_checkout: makeSelectIsReadyToCheckout(),
+    promo_code: makeSelectPromoCode(),
+    promos: makeSelectPromos(),
+    discount: makeSelectDiscount(),
+    ticket_id: makeSelectTicketId(),
   });
   
   export function mapDispatchToProps(dispatch) {
     return {
+      onLoadPromos: (promos) => dispatch(loadPromos(promos)),
       onLoadProducts: (products) => dispatch(loadProducts(products)),
       onAddToTicket: (product) => dispatch(addToTicket(product)),
       onAddOption: (opt, modifier) => dispatch(addOption(opt, modifier)),
@@ -133,6 +161,8 @@ export function BuyProcessPage({
       onDeleteProduct: (ticket_id) => dispatch(deleteProduct(ticket_id)),
       onRedirectToCheckout: () => dispatch(redirectToCheckout()),
       onSaveTicket: () => dispatch(saveTicket()),
+      onChange: (evt) => dispatch(change(evt)),
+      onPromoValidation: () => dispatch(validatePromo()),
     };
   }
   

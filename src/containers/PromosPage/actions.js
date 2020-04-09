@@ -15,7 +15,16 @@
  *    }
  */
 
-import { LOAD_PROMOS, CHANGE_VALUE, CHANGE_NP_VALUE, SAVE_PROMO, RESET_CRT_PROMO_FORM, DELETE_PROMO, SELECT_PROMO } from './constants';
+import { 
+  LOAD_PROMOS, 
+  CHANGE_VALUE, 
+  CHANGE_NP_VALUE, 
+  SAVE_PROMO, 
+  RESET_CRT_PROMO_FORM, 
+  DELETE_PROMO, 
+  SELECT_PROMO,
+  CREATE_PROMO,
+  REMOVE_PROMO} from './constants';
 
 
 export function loadPromos(promos) {
@@ -51,8 +60,6 @@ export function resetCreatePromoForm() {
   };
 }
 
-
-
 export function deletePromo() {
   return {
     type: DELETE_PROMO,
@@ -63,5 +70,19 @@ export function selectPromo(id) {
   return {
     type: SELECT_PROMO,
     id,
+  };
+}
+
+export function createPromo(promo) {
+  return {
+    type: CREATE_PROMO,
+    promo,
+  };
+}
+
+export function removePromo(promo_id) {
+  return {
+    type: REMOVE_PROMO,
+    promo_id,
   };
 }

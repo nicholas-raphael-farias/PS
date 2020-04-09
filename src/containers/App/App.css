@@ -164,6 +164,19 @@ a:hover{
   font-weight: bolder;
 }
 
+.paddCoinElement{
+  min-width: 100px;
+  max-width: 160px;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 0 20%;
+  background-color: rgb(255, 255, 255);
+  margin: 6px;
+  font-weight: bolder;
+}
+
 .paddElement.billElement{
   max-height: 60px;
 }

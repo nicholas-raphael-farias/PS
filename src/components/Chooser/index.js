@@ -37,7 +37,9 @@ const Chooser = ({products, onAddToTicket, product_modifiers, active_modifier, s
       <div className="row">
         <div className="col-12" style={{display:'flex', flexWrap:'wrap', justifyContent:'center'}}>
             {products.map(product => 
-              <Product product={product} onAddToTicket={onAddToTicket}/>
+              product.modifiers.filter(m => m.order !== -1).length > 0 ? 
+              <Product product={product} onAddToTicket={onAddToTicket}/> : 
+              null 
             )}
         </div>
       </div> :

@@ -1,4 +1,5 @@
 import { 
+  LOAD_PROMOS,
   LOAD_PRODUCTS, 
   ADD_TO_TICKET, 
   CLICK_BAD_PRODUCT, 
@@ -11,10 +12,25 @@ import {
   ADD_EDITED_SELECTED_OPTIONS,
   DELETE_PRODUCT,
   REDIRECT_TO_CHECKOUT,
-  SAVE_TICKET} from './constants'
+  SAVE_TICKET, 
+  CHANGE_EVENT,
+  VALIDATE_PROMO} from './constants'
 
 /**
- * Changes the input field of the form
+ * 
+ * @param  {array} promos La lista de PROMOS
+ * @return {object} An action object with a type of LOAD_PROMOS
+ */
+export function loadPromos(promos) {
+  return {
+    type: LOAD_PROMOS,
+    promos,
+  };
+}
+
+
+/**
+ * 
  * @param  {array} products La lista de productos
  * @return {object} An action object with a type of LOAD_PRODUCTS
  */
@@ -160,9 +176,10 @@ export function deleteProduct(ticket_id) {
  * Redirects to checkout 
  * @return {object} An action object with a type of REDIRECT_TO_CHECKOUT
  */
-export function redirectToCheckout() {
+export function redirectToCheckout(ticket_id) {
   return {
     type: REDIRECT_TO_CHECKOUT,
+    ticket_id,
   };
 }
 
@@ -173,5 +190,28 @@ export function redirectToCheckout() {
 export function saveTicket() {
   return {
     type: SAVE_TICKET,
+  };
+}
+
+
+/**
+ * 
+ * @param  {object} evt Event object
+ * @return {object} An action object with a type of CHANGE_EVENT
+ */
+export function change(evt) {
+  return {
+    type: CHANGE_EVENT,
+    evt,
+  };
+}
+
+/**
+ * 
+ * @return {object} An action object with a type of VALIDATE_PROMO
+ */
+export function validatePromo() {
+  return {
+    type: VALIDATE_PROMO,
   };
 }

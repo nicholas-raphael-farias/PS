@@ -8,7 +8,7 @@
  * Follow this format:
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
-
+export const LOAD_PROMOS = 'ps/BuyProcessPage/LOAD_PROMOS';
 export const LOAD_PRODUCTS = 'ps/BuyProcessPage/LOAD_PRODUCTS';
 export const ADD_TO_TICKET = 'ps/BuyProcessPage/ADD_TO_TICKET';
 export const ADD_OPTION = 'ps/BuyProcessPage/ADD_OPTION';
@@ -22,3 +22,5 @@ export const DELETE_PRODUCT = 'ps/BuyProcessPage/DELETE_PRODUCT';
 export const CLICK_BAD_PRODUCT = 'ps/BuyProcessPage/CLICK_BAD_PRODUCT';
 export const REDIRECT_TO_CHECKOUT = 'ps/BuyProcessPage/REDIRECT_TO_CHECKOUT';
 export const SAVE_TICKET = 'ps/BuyProcessPage/SAVE_TICKET';
+export const CHANGE_EVENT = 'ps/BuyProcessPage/CHANGE_EVENT';
+export const VALIDATE_PROMO = 'ps/BuyProcessPage/VALIDATE_PROMO';

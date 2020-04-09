@@ -76,4 +76,43 @@ const makeSelectIsReadyToCheckout = () =>
     empState => empState.is_ready_to_checkout
   );
 
-export { makeSelectProducts, makeSelectBoughtProducts, makeSelectProductModifiers, makeSelectActiveModifier, makeSelectTicketSubtotal, makeSelectActiveProduct, makeSelectStepBarHelper, makeSelectIsActiveEdit, makeSelectIsReadyToCheckout };
+const makeSelectPromoCode = () =>
+  createSelector(
+    selectBuy,
+    empState => empState.promo_code
+  );
+
+const makeSelectPromos = () =>
+  createSelector(
+    selectBuy,
+    empState => empState.promos
+  );
+
+const makeSelectDiscount = () =>
+  createSelector(
+    selectBuy,
+    empState => empState.discounts.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+  );
+
+  const makeSelectTicketId = () =>
+  createSelector(
+    selectBuy,
+    empState => empState.ticket_id
+  );
+
+
+export { 
+  makeSelectProducts, 
+  makeSelectBoughtProducts, 
+  makeSelectProductModifiers, 
+  makeSelectActiveModifier, 
+  makeSelectTicketSubtotal, 
+  makeSelectActiveProduct, 
+  makeSelectStepBarHelper, 
+  makeSelectIsActiveEdit, 
+  makeSelectIsReadyToCheckout,
+  makeSelectPromoCode,
+  makeSelectPromos,
+  makeSelectDiscount,
+  makeSelectTicketId,
+ };

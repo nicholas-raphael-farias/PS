@@ -9,16 +9,16 @@ const makeSelectPayed = () =>
     empState => empState.payed,
   );
 
-const makeSelectTotal = () =>
+const makeSelectTicket = (param) =>
   createSelector(
     selectBuy,
-    empState => empState.total,
+    empState => empState.ticket[param],
   );
 
 const makeSelectChange = () =>
   createSelector(
     selectBuy,
-    empState => empState.payed - empState.total < 0 ? '' : `${empState.payed - empState.total}`,
+    empState => empState.payed - empState.ticket.total < 0 ? '' : `${empState.payed - empState.ticket.total}`,
   );
 
 const makeSelectPaymentMethod = () =>
@@ -27,4 +27,10 @@ const makeSelectPaymentMethod = () =>
     empState => empState.payment_method,
   );
 
-export { makeSelectPayed, makeSelectTotal, makeSelectChange, makeSelectPaymentMethod };
+const makeSelectParam = (param) => 
+  createSelector(
+    selectBuy,
+    empState => empState[param],
+  );
+
+export { makeSelectPayed, makeSelectTicket, makeSelectChange, makeSelectPaymentMethod, makeSelectParam };

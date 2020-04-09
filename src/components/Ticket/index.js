@@ -13,15 +13,24 @@ const CancelBtn = ({onCancelProduct, product_count}) => {
 
 const FinishBuyingProcessBtn = ({onRedirectToCheckout, product_count, onSaveTicket}) => {
   return (
-    <div onClick={product_count === 0 ? onSaveTicket : ()=>{}} className={`btn btn-dark ${product_count === 0 ? '' : 'disabled'}`} style={{position:"absolute", right:"8px", bottom:"8px"}}>
+    <div onClick={product_count === 0 ? () => {
+      onSaveTicket();
+      //onRedirectToCheckout();
+    } : ()=>{}} className={`btn btn-dark ${product_count === 0 ? '' : 'disabled'}`} style={{position:"absolute", right:"8px", bottom:"8px"}}>
       Cobrar
     </div>
   )
 }
 
-const Totals = ({subtotal, descuento, onRedirectToCheckout, product_modifiers, onCancelProduct, onSaveTicket}) => {
+const Totals = ({subtotal, descuento, promo_code, discount, onRedirectToCheckout, product_modifiers, onCancelProduct, onSaveTicket, onChange, onPromoValidation}) => {
   return (
-    <div style={{height:"20vh", backgroundColor:"white", width:"calc(100% - 8px)", position:"absolute", right:"8px", bottom:"8px", padding:"8px", maxWidth:"400px"}}>
+    <div style={{height:"20vh", backgroundColor:"white", width:"calc(100% - 8px)", position:"absolute", right:"8px", bottom:"8px", padding:"8px", maxWidth:"400px", minHeight:"180px"}}>
+      <div className="col-12">
+        <div className="form-group row">
+          <label className="col-sm-4 col-form-label col-form-label-sm">Promocion</label>
+          <input type="text" class="form-control form-control-sm col-sm-8" value={promo_code} name='promo_code' onChange={onChange}/>
+        </div>
+      </div>
       <div className="col-12">
         <span style={{float:"right"}}> 
           <span style={{marginRight:"8vw"}}>Subtotal:</span> 
@@ -31,21 +40,27 @@ const Totals = ({subtotal, descuento, onRedirectToCheckout, product_modifiers, o
       <div className="col-12">
       <span style={{float:"right"}}> 
           <span style={{marginRight:"8vw"}}>Descuento:</span> 
-            ${descuento} <br/>
+            ${discount} <br/>
         </span>
       </div>
       <div className="col-12">
       <span style={{float:"right"}}> 
           <span style={{marginRight:"8vw"}}>Total:</span> 
-            ${subtotal - descuento} <br/>
+            ${subtotal - discount} <br/>
         </span>
       </div>
 
-      
+      {promo_code !== '' ? 
+        <div className="btn btn-dark" style={{position:"absolute", right:"8px", bottom:"8px"}} onClick={onPromoValidation}>
+          Canjear Codigo
+        </div>
+      : 
+
       <FinishBuyingProcessBtn 
       onRedirectToCheckout={onRedirectToCheckout}
       product_count={product_modifiers.length}
-      onSaveTicket={onSaveTicket}/>
+      onSaveTicket={onSaveTicket}/> 
+      }
      
   
       <CancelBtn onCancelProduct={onCancelProduct}
@@ -56,7 +71,7 @@ const Totals = ({subtotal, descuento, onRedirectToCheckout, product_modifiers, o
   )
 }
 
-const Ticket = ({bought_products, subtotal, onEditModifier, onDeleteProduct, onRedirectToCheckout, product_modifiers, onCancelProduct, onSaveTicket}) => {
+const Ticket = ({bought_products, subtotal, product_modifiers, promo_code, discount, onEditModifier, onDeleteProduct, onRedirectToCheckout, onCancelProduct, onSaveTicket, onChange, onPromoValidation}) => {
   return (
     <div className="col-4" style={{}}>
       <div className="row" style={{margin: '10px',backgroundColor: 'white', maxHeight:"70vh", overflow:"auto"}}>
@@ -92,7 +107,7 @@ const Ticket = ({bought_products, subtotal, onEditModifier, onDeleteProduct, onR
         })}
       </div>
     
-      <Totals subtotal={subtotal} descuento={0} onSaveTicket={onSaveTicket} onRedirectToCheckout={onRedirectToCheckout} product_modifiers={product_modifiers} onCancelProduct={onCancelProduct}/>
+      <Totals subtotal={subtotal} promo_code={promo_code} discount={discount} onSaveTicket={onSaveTicket} onRedirectToCheckout={onRedirectToCheckout} product_modifiers={product_modifiers} onCancelProduct={onCancelProduct} onChange={onChange} onPromoValidation={onPromoValidation}/>
     </div>
   )
 }
