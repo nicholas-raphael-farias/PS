@@ -32,7 +32,6 @@ import { checkSession } from './../../utils/session'
 function App() {
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="App">
         <Switch>
           <Route exact path="/demo" component={DemoPage} />
           <Route exact path="/" component={LoginPage} />
@@ -55,7 +54,6 @@ function App() {
           <Route exact path="/ultimate"  render={() => checkSession() ? (<UltimatePage/>) : (<Redirect to="/login" />)} />
           <Route path="/ultimate/:productId"  render={(props) => checkSession() ? (<UltimateSingle {...props} />)     : (<Redirect to="/login" />)} />
         </Switch>
-      </div>
     </DndProvider>
   );
 }

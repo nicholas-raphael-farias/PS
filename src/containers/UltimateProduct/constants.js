@@ -10,6 +10,7 @@
  */
 
 export const LOAD_PRODUCTS = 'ps/ProductsPage/LOAD_PRODUCTS';
+export const LOAD_CATEGORIES = 'ps/ProductsPage/LOAD_CATEGORIES';
 export const CREATE_PRODUCT = 'ps/ProductsPage/CREATE_PRODUCT';
 export const CREATED_PRODUCT = 'ps/ProductsPage/CREATED_PRODUCT';
 export const MAKE_FORM_VISIBLE = 'ps/ProductsPage/MAKE_FORM_VISIBLE';

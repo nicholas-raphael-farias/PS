@@ -7,6 +7,12 @@ import { initialState } from './reducer';
 
 const selectProducts = state => state.products || initialState;
 
+const makeSelectCategories = () =>
+  createSelector(
+    selectProducts,
+    productsState => productsState.categories,
+  );
+
 const makeSelectProducts = () =>
   createSelector(
     selectProducts,
@@ -34,6 +40,7 @@ const makeSelectNewProduct = () =>
         modifiers: [],
         type: 0,
         price: productsState.product_price,
+        category: productsState.product_category,
       };
     },
   );
@@ -48,4 +55,4 @@ const makeSelectFormVisibility = () =>
     },
   );
 
-export { makeSelectProducts, makeSelectProduct, makeSelectFormVisibility, makeSelectNewProduct };
+export { makeSelectCategories, makeSelectProducts, makeSelectProduct, makeSelectFormVisibility, makeSelectNewProduct };

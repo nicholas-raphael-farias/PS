@@ -6,6 +6,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import es from 'date-fns/locale/es';
 import * as Yup from 'yup';
 
+import './theme-checkbox-radio.css';
+
 const validationSchema = Yup.object().shape({
   name: Yup.string()
     .required('nombre requerido')
@@ -16,14 +18,16 @@ const validationSchema = Yup.object().shape({
   .min(1, 'el costo debe ser mayor a cero'),
 });
 
+
 const Checkbox = (props) => {
   return (
-    <div class="form-check">
+    <div class="n-chk">
+      <label class="new-control new-checkbox new-checkbox-text checkbox-primary">
       <Field name={props.name}>
         {({ field, form }) => (
           <input
             type="checkbox"
-            class="form-check-input"
+            class="new-control-input"
             {...props}
             checked={field.value.includes(props.value)}
             onChange={() => {
@@ -40,24 +44,24 @@ const Checkbox = (props) => {
           />
         )}
       </Field>
-      <label class="form-check-label">
-        Tiene precio?
+      <span class="new-control-indicator"></span> 
+      <span class="new-chk-content">El producto tiene precio ?</span>
       </label>
     </div>
   );
 }
 
-const NewProductForm = ({ onCreateProduct }) => (
+const NewProductForm = ({ categories, onCreateProduct }) => (
   <div>
     <Formik
-      initialValues={{name:'', has_price: [], price: 1}}
+      initialValues={{name:'', has_price: [], price: 1, category: ''}}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
         setTimeout(() => {
           let response = 
             values.has_price.length > 0 ? 
-            { name: values.name, has_price: true, price: values.price } : 
-            { name: values.name, has_price: false, price: 0 }
+            { name: values.name, has_price: true, price: values.price, category: values.category } : 
+            { name: values.name, has_price: false, price: 0, category: values.category }
           onCreateProduct(response)
           setSubmitting(false)
         }, 400);
@@ -90,16 +94,33 @@ const NewProductForm = ({ onCreateProduct }) => (
               className="error_message"
             />
           </div>
+
+          <div className="form-group">
+            <label>Categoria</label>
+          
+            <Field as="select" name="category" className="form-control">
+              {categories.map( category => {
+                return(<option value={category.name}>{category.name}</option>)
+              })}
+            </Field>
+
+            <ErrorMessage
+              name="category"
+              component="div"
+              className="error_message"
+            />
+          </div>
+
           <Checkbox name="has_price" value="true" />
 
          {values.has_price.length > 0 ?  
           <div className="form-group">
-            <label>Cantidad</label>
+            <label>Precio</label>
             <Field
               name="price"
               className={errors.price && touched.price ? "form-control is-invalid" : "form-control"}
               onBlur={handleBlur}
-              placeholder="Ingresar costo"
+              placeholder="Ingresar precio"
               type="text"
             />
             <ErrorMessage
@@ -110,7 +131,7 @@ const NewProductForm = ({ onCreateProduct }) => (
             </div>
          : null}
 
-          <button className="btn btn-dark btn-block" type="submit" disabled={isSubmitting}>
+          <button className="btn btn-primary btn-block" type="submit" disabled={isSubmitting}>
             Crear Producto
           </button>
         </form>

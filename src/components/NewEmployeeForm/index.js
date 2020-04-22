@@ -148,7 +148,7 @@ const NewEmployeeForm = ({onSetValues, onSaveEmployee}) => (
 
 
 
-          <button className="btn btn-dark btn-block" type="submit" disabled={isSubmitting}>
+          <button className="btn btn-primary btn-block" type="submit" disabled={isSubmitting}>
             Crear
           </button>
         </form>

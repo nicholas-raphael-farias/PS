@@ -153,8 +153,8 @@ export function FlowPage ({
         headers: {'Authorization': `Bearer ${token}`}
       })
       .then(({ data }) => {
-        console.log(data.data);
-        onLoadProducts(data.data);
+        console.log(data);
+        onLoadProducts(data);
       });
 
     } catch (err) {

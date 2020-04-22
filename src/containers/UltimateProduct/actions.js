@@ -16,16 +16,31 @@
  */
 
 import { 
+  LOAD_CATEGORIES,
   LOAD_PRODUCTS, 
   CREATE_PRODUCT,
   CREATED_PRODUCT,
   MAKE_FORM_VISIBLE,
  } from './constants';
 
+
+/**
+ * Changes the input field of the form
+ * @param  {array} categories La lista de categorias
+ * @return {object} An action object with a type of LOAD_CATEGORIES
+ */
+export function loadCategories(categories) {
+  return {
+    type: LOAD_CATEGORIES,
+    categories,
+  };
+}
+
+
 /**
  * Changes the input field of the form
  * @param  {array} products La lista de productos
- * @return {object} An action object with a type of CHANGE_USERNAME
+ * @return {object} An action object with a type of LOAD_PRODUCTS
  */
 export function loadProducts(products) {
   return {

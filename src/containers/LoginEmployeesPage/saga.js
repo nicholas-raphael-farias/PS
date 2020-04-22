@@ -13,6 +13,7 @@ import { hashPassword } from './../../utils/hash';
  * 
  */
 export function* checkCredentialsSaga() {
+  console.log('checked_credentials')
   // Select username from store
   const code = yield select(makeSelectCode());
   const requestURL = `${getServerUrl()}/employees?hashed_password=${hashPassword(code)}`;

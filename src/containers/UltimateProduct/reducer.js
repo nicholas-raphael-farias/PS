@@ -11,6 +11,7 @@ import produce from 'immer';
 import { 
   CREATE_PRODUCT, 
   CREATED_PRODUCT,
+  LOAD_CATEGORIES,
   LOAD_PRODUCTS, 
   MAKE_FORM_VISIBLE,
 } from './constants';
@@ -18,11 +19,13 @@ import { da } from 'date-fns/esm/locale';
 
 // The initial state of the App
 export const initialState = {
+  categories:[],
   products: [],
   isCreatePrdFormVisible: false,
   product_name: '',
   product_has_price: false,
   product_price: 0,
+  product_category: '',
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -30,12 +33,17 @@ const productsReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
 
+      case LOAD_CATEGORIES:
+        draft.categories = action.categories;
+        break;
+
       case LOAD_PRODUCTS:
         draft.products = action.products;
         break;
       case CREATE_PRODUCT:
         draft.product_name = action.product.name
         draft.product_price = action.product.price
+        draft.product_category = action.product.category
         draft.product_has_price = action.product.has_price
         break;
       case CREATED_PRODUCT:

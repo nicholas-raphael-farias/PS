@@ -1,6 +1,6 @@
 export const LOAD_PROMOS = 'ps/PromosPage/LOAD_PROMOS';
 export const CHANGE_VALUE = 'ps/PromosPage/CHANGE_VALUE'; 
-export const CHANGE_NP_VALUE = 'ps/PromosPage/CHANGE_NP_VALUE';
+export const CHANGE_NEW_PROMO = 'ps/PromosPage/CHANGE_NEW_PROMO';
 export const SAVE_PROMO = 'ps/PromosPage/SAVE_PROMO';
 export const CREATE_PROMO = 'ps/PromosPage/CREATE_PROMO';
 export const RESET_CRT_PROMO_FORM = 'ps/PromosPage/RESET_CRT_PROMO_FORM';

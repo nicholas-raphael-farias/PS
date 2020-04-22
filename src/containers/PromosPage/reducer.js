@@ -11,7 +11,7 @@ import produce from 'immer';
 import { 
   LOAD_PROMOS, 
   CHANGE_VALUE, 
-  CHANGE_NP_VALUE, 
+  CHANGE_NEW_PROMO, 
   RESET_CRT_PROMO_FORM, 
   SELECT_PROMO,
   CREATE_PROMO,
@@ -19,13 +19,9 @@ import {
 
 // The initial state of the App
 export const initialState = {
+  categories: [],
   promos: [],
-  new_promo: {
-    type: '1',
-    porcentage: '',
-    product: '',
-    expiration_date: new Date(),
-  },
+  new_promo: {},
   products:[],
   is_visible_crt_modal: false,
   selected_promo: '',
@@ -41,8 +37,8 @@ const PromosReducer = (state = initialState, action) =>
       case CHANGE_VALUE:
         draft[action.event.name] = action.event.value;
         break;
-      case CHANGE_NP_VALUE: 
-        draft.new_promo[action.event.target.name] = action.event.target.value;
+      case CHANGE_NEW_PROMO: 
+        draft.new_promo = action.new_promo;
         break;
       case RESET_CRT_PROMO_FORM:
         draft.new_promo = {

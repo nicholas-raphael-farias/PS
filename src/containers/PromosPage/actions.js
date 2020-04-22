@@ -18,7 +18,7 @@
 import { 
   LOAD_PROMOS, 
   CHANGE_VALUE, 
-  CHANGE_NP_VALUE, 
+  CHANGE_NEW_PROMO, 
   SAVE_PROMO, 
   RESET_CRT_PROMO_FORM, 
   DELETE_PROMO, 
@@ -34,10 +34,10 @@ export function loadPromos(promos) {
     };
 }
 
-export function changeNewPromoValue(event) {
+export function changeNewPromo(new_promo) {
   return {
-    type: CHANGE_NP_VALUE,
-    event,
+    type: CHANGE_NEW_PROMO,
+    new_promo,
   };
 }
 

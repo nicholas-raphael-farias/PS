@@ -16,6 +16,10 @@ import { makeSelectCode, makeSelectWasAccepted } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
+import './css/form-1.css';
+import './css/switches.css';
+import './css/theme-checkbox-radio.css';
+
 const key = 'loginEmployees';
 
 export function LoginEmployeesPage({
@@ -29,21 +33,49 @@ checkCredentials
   useInjectSaga({ key, saga });
   
   return (
-    <div className="row justify-content-center">
+    <div class="form-container">
       {wasAccepted ? <Redirect to="/employees/buy_process" /> : null }
-      <div className="col-4" style={{marginTop:'calc(50vh - 160px)'}}>
-        <div className="card">
-          <div className="card-body">
-            <div className="form-group">
-              <label htmlFor="exampleInputEmail1">INGRESAR CÓDIGO</label>
-              <input type="password" className="form-control" value={code} onChange={onChangeCode} placeholder="Ingresar Código"/>
-              <small className="form-text text-muted">Tu código es personal, no lo compartas con nadie.</small>
+    <div class="form-form">
+      <div class="form-form-wrap">
+        <div class="form-container">
+          <div class="form-content">
+
+            <div class="d-flex user-meta">
+              <div class="">
+                <p class="">EMPLEADOS BUBBLETOWN</p>
+              </div>
             </div>
-          </div>
-        </div>          
-        <div className="btn btn-dark" style={{marginTop:'24px', width:'160px'}} onClick={() => checkCredentials(code)}>Ingresar</div>
+
+            <form class="text-left">
+              <div class="form">
+                <div id="password-field" class="field-wrapper input mb-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lock"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                  <input id="password" name="password" type="password" class="form-control" placeholder="Codigo"/>
+                </div>
+                <div class="d-sm-flex justify-content-between">
+                  <div class="field-wrapper toggle-pass">
+                    <p class="d-inline-block">Mostrar codigo</p>
+                    <label class="switch s-primary">
+                      <input type="checkbox" id="toggle-password" class="d-none" value={code} onChange={onChangeCode}/>
+                      <span class="slider round"></span>
+                    </label>
+                  </div>
+                  <div class="field-wrapper">
+                    <div class="btn btn-primary"  onClick={() => checkCredentials(code)}>Ingresar</div>
+                  </div>
+                </div>
+              </div>
+            </form>                        
+            <p class="terms-conditions">No compartas tu codigo con nadie, <a href="/PS/login"> Bubble Town</a>. <a href="javascript:void(0);">Contactar al administrador</a>, <a href="/help">Preguntas Frecuentes</a>.</p>
+
+          </div>                    
+        </div>
       </div>
     </div>
+    <div className="form-image">
+      <img src="/PS/logo3.png" style={{position:'absolute', margin:'auto', width:'500px', height:'500px', top:'calc(50% - 250px)', left: 'calc(50% - 250px)'}}/>
+    </div>
+</div>
   )
 }
 

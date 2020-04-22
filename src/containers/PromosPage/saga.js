@@ -17,7 +17,7 @@ export function* sagaSavePromo() {
   try {
     const token = localStorage.getItem("PointOfSaleToken")
     const promo = yield call(request, requestURL, {
-      body: JSON.stringify({tipo: new_promo.type, porcentaje: new_promo.porcentage, producto: new_promo.product, fecha_expiracion: new_promo.expiration_date}),
+      body: JSON.stringify(new_promo),
       headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`},
       method: 'POST'
     });

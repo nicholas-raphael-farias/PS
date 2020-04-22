@@ -1,5 +1,5 @@
-import React, { memo } from 'react'
-import Navbar from '../../components/Navbar'
+import React, { memo, useState } from 'react'
+//import Navbar from '../../components/Navbar'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -8,20 +8,19 @@ import { useInjectReducer } from './../../utils/injectReducer';
 import { changeSignOutState } from './actions';
 import { makeSelectIsSigningOut } from './selectors';
 import reducer from './reducer';
+import ContainerWrapper from './../../components/ContainerWrapper';
 
 const key = 'dashboard';
 
 const DashboardPage = () => {
-
-    return (
-      <div>
-        <Navbar is_active='dashboard' />
-      </div>
+    return(
+      <ContainerWrapper active_page={key}>
+      </ContainerWrapper>
     )
-}
+  }
 
-DashboardPage.propTypes = {
-};
+  DashboardPage.propTypes = {
+  };
 
 
 const mapStateToProps = createStructuredSelector({

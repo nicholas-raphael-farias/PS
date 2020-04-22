@@ -66,7 +66,7 @@ export function BuyProcessPage({
 
       axios.get(requestURL)
       .then(({ data }) => {
-        onLoadProducts(data.data);
+        onLoadProducts(data);
 
         try {
           axios.get(requestPromosURL)

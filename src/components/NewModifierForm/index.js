@@ -108,7 +108,7 @@ const NewModifierForm = ({ setModValues, onSaveMod }) => (
             </div>
           </div>
 
-          <button className="btn btn-dark btn-block" type="submit" disabled={isSubmitting}>
+          <button className="btn btn-primary btn-block" type="submit" disabled={isSubmitting}>
             Crear Modificador
           </button>
         </form>

@@ -57,7 +57,7 @@ const NewPasswordForm = ({onUpdatePswd}) => (
               Tu contraseña debe contener mínimo 5 caracteres.
             </small>
           </div>
-          <button className="btn btn-dark btn-block" type="submit" disabled={isSubmitting}>
+          <button className="btn btn-primary btn-block" type="submit" disabled={isSubmitting}>
             Actualizar
           </button>
         </form>

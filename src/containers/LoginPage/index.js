@@ -12,6 +12,10 @@ import LoginForm from '../../components/LoginForm'
 import reducer from './reducer'
 import saga from './saga'
 
+import './css/form-1.css';
+import './css/switches.css';
+import './css/theme-checkbox-radio.css';
+
 const key = 'login'
 
 export function LoginPage({
@@ -23,24 +27,25 @@ export function LoginPage({
   useInjectReducer({ key, reducer })
   useInjectSaga({ key, saga })
   
-  return (
-    <div className="row justify-content-center">
-      {was_accepted ? <Redirect to="/dashboard" /> : null }
-      <div className="col-4" style={{marginTop:'calc(50vh - 160px)'}}>
-        <div className="card">
-          <div className="card-body">
-            <LoginForm onSetValues={onSetValues} checkCredentials={checkCredentials}/>
-          </div>
-        </div>          
+  return (  
+    <div className="form-container">
+
+    {was_accepted ? <Redirect to="/dashboard" /> : null }
+
+      <LoginForm onSetValues={onSetValues} checkCredentials={checkCredentials}/>
+
+      <div className="form-image">
+        <img src="logo3.png" style={{position:'absolute', margin:'auto', width:'500px', height:'500px', top:'calc(50% - 250px)', left: 'calc(50% - 250px)'}}/>
       </div>
     </div>
+  
   )
 }
 
 LoginPage.propTypes = {
   was_accepted: PropTypes.bool,
   onSetValues: PropTypes.func,
-  checkCredentials: PropTypes.string,
+  checkCredentials: PropTypes.func,
 }
 
 const mapStateToProps = createStructuredSelector({
