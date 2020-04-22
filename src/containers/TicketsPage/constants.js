@@ -10,11 +10,6 @@
  */
 
 export const LOAD_TICKETS = 'ps/TicketsPage/LOAD_TICKETS';
-export const CHANGE_VALUE = 'ps/DiscountsPage/CHANGE_VALUE'; 
-export const CHANGE_NP_VALUE = 'ps/DiscountsPage/CHANGE_NP_VALUE';
-export const SAVE_PROMO = 'ps/DiscountsPage/SAVE_PROMO';
-export const CREATE_PROMO = 'ps/DiscountsPage/CREATE_PROMO';
-export const RESET_CRT_PROMO_FORM = 'ps/DiscountsPage/RESET_CRT_PROMO_FORM';
-export const DELETE_PROMO = 'ps/DiscountsPage/DELETE_PROMO';
-export const REMOVE_PROMO = 'ps/DiscountsPage/REMOVE_PROMO';
-export const SELECT_PROMO = 'ps/DiscountsPage/SELECT_PROMO';
+export const SELECT_TICKET = 'ps/TicketsPage/SELECT_TICKET';
+export const REQUEST_TCK_CANCEL = 'ps/TicketsPage/REQUEST_TCK_CANCEL';
+export const CANCEL_TICKET = 'ps/TicketsPage/CANCEL_TICKET';

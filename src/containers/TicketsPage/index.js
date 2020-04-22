@@ -20,7 +20,7 @@ import { createStructuredSelector } from 'reselect';
 import { useInjectReducer } from '../../utils/injectReducer';
 import { useInjectSaga } from '../../utils/injectSaga';
 
-import { loadTickets } from './actions';
+import { loadTickets, selectTicket, requestTcktCancel } from './actions';
 import { makeSelectParam } from './selectors';
 
 import reducer from './reducer';
@@ -36,11 +36,14 @@ registerLocale('es', es)
 
 export function TicketsPage({
   tickets,
+  selected_ticker,
   onLoadTickets,
+  onSelectTicket,
+  onRequestTicketCancell,
 }) {
 
   useInjectReducer({ key, reducer });
-  //useInjectSaga({ key, saga });
+  useInjectSaga({ key, saga });
 
   useEffect(() => {
 
@@ -100,6 +103,7 @@ export function TicketsPage({
                         <th tabindex="2" aria-controls="zero-config" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style={{width:"86px"}}>Cliente</th>
                         <th tabindex="3" aria-controls="zero-config" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style={{width:"86px"}}>Creado en</th>
                         <th tabindex="4" aria-controls="zero-config" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style={{width:"86px"}}>Total</th>
+                        <th tabindex="4" aria-controls="zero-config" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style={{width:"86px"}}>Estado</th>
                         <th tabindex="5" aria-controls="zero-config" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style={{width:"86px"}}>Acciones</th>
                         <th class="no-content sorting" tabindex="0" aria-controls="zero-config" rowspan="1" colspan="1" aria-label=": activate to sort column ascending" style={{width:"48px"}}></th>
                         </tr>
@@ -113,14 +117,17 @@ export function TicketsPage({
                           <td style={{border:"none"}}>{e.id_participante === null ? "SIN" : null}</td>
                           <td style={{border:"none"}}>{typeof(e.hora_creacion) === 'object' ? e.hora_creacion.toLocaleDateString("es-MX") : new Date(e.hora_creacion).toLocaleDateString() }</td>
                           <td style={{border:"none"}}>{e.total}</td>
+                          <td style={{border:"none"}}>{e.status}</td>
 
                           <td>
                             <svg onClick={() => { 
-                            
+                            onSelectTicket(e._id);
+                            onRequestTicketCancell();
                             }} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle table-cancel"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
-                            <svg onClick={() => {
                             
-                            }} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle table-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                            <a href={`/PS/tickets/${e._id}`}>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle table-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                            </a>
 
                             <a href={`http://localhost:3030/pdfs/${e._id}`} target="_blank">
                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle table-pdf"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
@@ -168,11 +175,14 @@ TicketsPage.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   tickets: makeSelectParam('tickets'),
+  selected_ticker: makeSelectParam('selected_tck_id'),
 });
 
 export function mapDispatchToProps(dispatch) {
   return {
     onLoadTickets: (tickets) => dispatch(loadTickets(tickets)),
+    onSelectTicket: (ticket_id) => dispatch(selectTicket(ticket_id)),
+    onRequestTicketCancell: () => dispatch(requestTcktCancel()),
   };
 }
 

@@ -17,6 +17,9 @@
 
 import { 
   LOAD_TICKETS,
+  SELECT_TICKET,
+  REQUEST_TCK_CANCEL,
+  CANCEL_TICKET,
 } from './constants';
 
 
@@ -25,4 +28,25 @@ export function loadTickets(tickets) {
       type: LOAD_TICKETS,
       tickets,
     };
+}
+
+export function selectTicket(ticket_id) {
+  return {
+    type: SELECT_TICKET,
+    ticket_id
+  };
+}
+
+export function requestTcktCancel() {
+  return {
+    type: REQUEST_TCK_CANCEL,
+  };
+}
+
+
+export function cancelTicket(ticket_id) {
+  return {
+    type: CANCEL_TICKET,
+    ticket_id,
+  };
 }
